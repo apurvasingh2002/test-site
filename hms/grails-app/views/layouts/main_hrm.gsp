@@ -55,7 +55,6 @@
 			<div class="left-div">
 				<div class="user-settings-wrapper">
 					<ul class="nav">
-
 						<li class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
 								<span class="glyphicon glyphicon-user" style="font-size: 25px;"></span>

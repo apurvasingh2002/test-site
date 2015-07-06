@@ -4,108 +4,92 @@
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
 <!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"><!--<![endif]-->
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>Spastika HMS</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="shortcut icon" href="${resource(dir: 'images', file:'tab.png')}" type="image/x-icon">
-		%{--<link rel="apple-touch-icon" href="${assetPath(src: 'apple-touch-icon.png')}">--}%
-		%{--<link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'apple-touch-icon-retina.png')}">--}%
-  		%{--<asset:stylesheet src="application.css"/>--}%
-		%{--<asset:javascript src="application.js"/>--}%
-
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Spastika HMS</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="${resource(dir: 'images', file:'tab.png')}" type="image/x-icon">
+	%{--<link rel="apple-touch-icon" href="${assetPath(src: 'apple-touch-icon.png')}">--}%
+	%{--<link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'apple-touch-icon-retina.png')}">--}%
+	%{--<asset:stylesheet src="application.css"/>--}%
+	%{--<asset:javascript src="application.js"/>--}%
 	<script type="text/javascript" src="${resource(dir:'js',file:'jquery-1.11.1.js')}"></script>
 	<script type="text/javascript" src="${resource(dir:'js',file:'bootstrap.js')}"></script>
 	<link rel="stylesheet"  type="text/css"  href="${resource(dir:'css',file:'bootstrap.css')}" media="screen" />
-	<link rel="stylesheet"  type="text/css"  href="${resource(dir:'css',file:'style.css')}" media="screen" />
+	%{--<link rel="stylesheet"  type="text/css"  href="${resource(dir:'css',file:'style.css')}" media="screen" />--}%
+	<link rel="stylesheet"  type="text/css"  href="${resource(dir:'css',file:'main-layout.css')}" media="screen" />
+	<link rel="stylesheet"  type="text/css"  href="${resource(dir:'css',file:'default.css')}" media="screen" />
 	<link rel="stylesheet"  type="text/css"  href="${resource(dir:'css',file:'font-awesome.css')}" media="screen" />
-		<g:layoutHead/>
-	</head>
-	<body>
-		%{--<div id="grailsLogo" role="banner"><a href="http://grails.org"><asset:image src="grails_logo.png" alt="Grails"/></a></div>--}%
-	<header>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<strong>Email: </strong>info@spastika.com
-				&nbsp;&nbsp;
-					<strong>Support: </strong>+90-897-678-44
-				</div>
-
-			</div>
+	<g:layoutHead/>
+</head>
+<body>
+%{--<div id="grailsLogo" role="banner"><a href="http://grails.org"><asset:image src="grails_logo.png" alt="Grails"/></a></div>--}%
+<header>
+	<div class="notification-top">
+		<span class="notification-container"></span>
+	</div>
+	<div class="logo">
+		<a class="navbar-brand" href="#">
+			<img src="${resource(dir: 'images', file:'logo.png')}" alt="Spastika"/>
+		</a>
+	</div>
+	<g:if test="${sec.loggedInUserInfo(field:"username")}">
+		<div class="user-profile">
+			<span class="span-link" data-toggle="modal" data-target="#userProfileModal">
+				<span class="glyphicon glyphicon-user" style="color: #fff"></span>
+				Welcome Admin,</span>
+			<a href="${createLink(controller: 'logout',action: 'index')}"> Logout</a>
 		</div>
-	</header>
-
-	<div class="navbar navbar-inverse set-radius-zero">
-		<div class="container" style="margin-bottom: 30px;">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="/hms/">
-					<img src="${resource(dir: 'images', file:'logo.png')}" alt="Spastika"/>
-					%{--<img src="assets/img/logo.png" />--}%
-				</a>
-
-			</div>
-
-			<div class="left-div" >
-				<div class="user-settings-wrapper">
-					<ul class="nav">
-
-						<li class="dropdown" >
-							%{--<a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-								<span class="glyphicon glyphicon-user" style="font-size: 25px;"></span>
-							</a>--}%
-							<div class="dropdown-menu dropdown-settings">
-								<div class="media">
-									<a class="media-left" href="#">
-										<span class="glyphicon glyphicon-user" style="font-size: 25px;"></span>
-										<img src="assets/img/64-64.jpg" alt="" class="img-rounded" />
-									</a>
-									<div class="media-body">
-										<h4 class="media-heading">UserName:${sec.loggedInUserInfo(field:"username")}</h4>
-										<h5>Phone:*******</h5>
-
-									</div>
-								</div>
-								<hr />
-								<h5><strong>Designation : *******</strong></h5>
-								Type #####
-								<hr />
-								<g:link id="${sec.loggedInUserInfo(field:"id")}" controller="user" action="show" class="btn btn-info btn-sm">Full Profile</g:link>
-								<div style="float: right">
-								<form name="logout" method="POST" action="${createLink(controller:'logout') }"> <input class="btn btn-danger btn-sm" type="submit" value="Logout"></form>
-							</div>
-							</div>
-						</li>
-
-					</ul>
-				</div>
-			</div>
-			</div>
-			</div>
-
-
-
-	<div class="content-wrapper">
-		<div class="container">
-		<g:layoutBody/>
-		</div>
-		</div>
-		%{--<div class="footer" role="contentinfo"></div>--}%
-	<footer>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-				&copy; 2015 Spastika | By : <a href="http://www.spastika.com/" target="_blank">@Spastika</a>
+		<div id="userProfileModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Profile</h4>
+					</div>
+					<div class="modal-body">
+						<p>UserName: ${sec.loggedInUserInfo(field:"username")}</p>
+						<p>Designation: someText</p>
+						<p>Phone: 01-123456</p>
+					</div>
+					<div class="modal-footer">
+						<form name="logout" method="POST" action="${createLink(controller:'logout') }">
+							<g:link id="${sec.loggedInUserInfo(field:"id")}" controller="user" action="show"
+									class="btn btn-info btn-sm" style="float: left">Full Profile</g:link>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<input class="btn btn-danger btn-sm" type="submit" value="Logout">
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
-	</footer>
-		%{--<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>--}%
-	</body>
+	</g:if>
+</header>
+<nav>
+	<div class="container">
+
+	</div>
+</nav>
+<section>
+	<div class="loading-logo"></div>
+</section>
+<div class="main-body-container">
+	<g:layoutBody/>
+</div>
+<footer>
+	<div class="footer-container">
+		<span>
+			Developed By :<a href="http://www.spastika.com/" target="_blank"> www.Spastika.com </a>| Contact: 01-4123456
+		</span>
+	</div>
+</footer>
+<script type="text/javascript">
+	$('.notification-top').click(function(){
+		$(this).animate({
+			top: -$(this).outerHeight()
+		});
+	});
+</script>
+</body>
 </html>
