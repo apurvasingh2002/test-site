@@ -9,18 +9,19 @@ import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class EmployeeController {
-
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-
   //  def scaffold = true
-
-
-
-    def index(Integer max) {
-
-
-        params.max = Math.min(max ?: 10, 100)
+    def index() {
+        params.max = Math.min(params.max ?: 10, 100)
         respond Employee.list(params), model:[employeeInstanceCount: Employee.count()]
+    }
+
+    def renderTemplate(){
+        redirect(action: render+(params.template))
+    }
+
+    def renderEmployee(){
+
     }
 
     def show(Employee employeeInstance) {
@@ -28,40 +29,25 @@ class EmployeeController {
     }
 
     def create() {
-        respond new Employee(params)
+        respond new Employee()
     }
 
     @Transactional
-    def save(Employee employeeInstance) {
-
-        def username=params.username
-        employeeInstance.user=null;
-        employeeInstance.validate();
-
-
-
-        if (employeeInstance == null) {
-            notFound()
-            return
-        }
-
-        if (employeeInstance.hasErrors()) {
-            respond employeeInstance.errors, view:'create'
-            return
-        }
-
-        def newUser=new User(username:username,password:"password").save(flush: true);
-        UserRole.create(newUser,new Role(authority:"ROLE_EMPLOYEE").save(flush: true));
-        employeeInstance.user=newUser
-
-        employeeInstance.save flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), employeeInstance.id])
-                redirect employeeInstance
+    def saveEmployee() {
+        def employee = new Employee(params)
+        def newUser = new User(params.username,"password").save(flush: true);
+        UserRole.create(newUser,new Role("ROLE_EMPLOYEE").save(flush: true));
+        println employee
+        employee.user = newUser
+        try{
+            employee.save(flush:true){
+                flash.message = message(code: 'default.created.message', args: ['Employee', employee.id])
+                redirect(index());
             }
-            '*' { respond employeeInstance, [status: CREATED] }
+        }
+        catch(Exception e){
+            println e.getMessage()
+            redirect(action:  'create')
         }
     }
 
@@ -75,14 +61,11 @@ class EmployeeController {
             notFound()
             return
         }
-
         if (employeeInstance.hasErrors()) {
             respond employeeInstance.errors, view:'edit'
             return
         }
-
         employeeInstance.save flush:true
-
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Employee.label', default: 'Employee'), employeeInstance.id])
@@ -94,14 +77,11 @@ class EmployeeController {
 
     @Transactional
     def delete(Employee employeeInstance) {
-
         if (employeeInstance == null) {
             notFound()
             return
         }
-
         employeeInstance.delete flush:true
-
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'Employee.label', default: 'Employee'), employeeInstance.id])

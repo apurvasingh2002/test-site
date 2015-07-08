@@ -25,7 +25,7 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form class="form form-inline" url="[resource:employeeInstance, action:'save']" >
+			<g:form class="form form-inline" url="[resource:employeeInstance, action:'saveEmployee']" >
 				%{--<fieldset class="form">--}%
 					<g:render template="form"/>
 				%{--</fieldset>--}%
