@@ -5,26 +5,16 @@
 	<meta name="layout" content="main">
 	<g:set var="entityName" value="${message(code: 'employee.label', default: 'Employee')}" />
 	<title><g:message code="default.list.label" args="[entityName]" /></title>
-	<style type="text/css">
-		#menu-top li a{
-			padding-top: 5px;
-			padding-bottom: 5px;
-			color: #fff;
-		}
-		#menu-top li a:hover{
-			color: #000;
-		}
-	</style>
 </head>
 <body>
 <div class="menu-section">
 	<div class="menu-container">
 		<div class="navbar-collapse">
 			<ul id="menu-top" class="nav navbar-nav">
-				<li><g:link class="menu-top-active" controller="employee">Employee</g:link></li>
+				<li><g:link class="" controller="employee">Employee</g:link></li>
 				<li><g:link class="" controller="leaveSetting">Leave</g:link></li>
 				<li><g:link class="" controller="payroll">Payroll</g:link></li>
-				<li><g:link class="" controller="rooster">Rooster</g:link></li>
+				<li><g:link>Rooster</g:link></li>
 			</ul>
 		</div>
 	</div>
@@ -74,11 +64,8 @@
 		var menuSection = $('.menu-section');
 		$('nav').html(menuSection.html());
 		menuSection.remove();
-		getMenuContent()
+		$("#menu-top").find('li:first-child').css({'background-color':'#C36464'});
 	});
-	function getMenuContent(ele){
-
-	}
 </script>
 </body>
 </html>

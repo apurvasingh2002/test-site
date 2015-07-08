@@ -16,6 +16,7 @@
 	%{--<asset:javascript src="application.js"/>--}%
 	<script type="text/javascript" src="${resource(dir:'js',file:'jquery-1.11.1.js')}"></script>
 	<script type="text/javascript" src="${resource(dir:'js',file:'bootstrap.js')}"></script>
+	<script type="text/javascript" src="${resource(dir:'js',file:'default.js')}"></script>
 	<link rel="stylesheet"  type="text/css"  href="${resource(dir:'css',file:'bootstrap.css')}" media="screen" />
 	%{--<link rel="stylesheet"  type="text/css"  href="${resource(dir:'css',file:'style.css')}" media="screen" />--}%
 	<link rel="stylesheet"  type="text/css"  href="${resource(dir:'css',file:'main-layout.css')}" media="screen" />
@@ -67,12 +68,9 @@
 	</g:if>
 </header>
 <nav>
-	<div class="container">
-
-	</div>
 </nav>
 <section>
-	<div class="loading-logo"></div>
+	<div id="loading-screen">Loading ....</div>
 </section>
 <div class="main-body-container">
 	<g:layoutBody/>

@@ -2,3 +2,12 @@
     width:100% ;
     padding : 0 50px 0 15px;
 }
+#menu-top li a{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: #fff;
+}
+#menu-top li a:hover{
+    cursor: pointer;
+    background-color: #F0677C;
+}
