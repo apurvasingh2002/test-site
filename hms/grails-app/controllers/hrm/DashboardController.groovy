@@ -6,4 +6,7 @@ class DashboardController {
         render view: 'dashboard'
     }
 
+    def renderUserProfile(){
+        render template: 'userProfile'
+    }
 }

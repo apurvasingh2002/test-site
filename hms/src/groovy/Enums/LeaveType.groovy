@@ -5,9 +5,9 @@ package Enums
  */
 enum LeaveType {
 
-    PERSONAL('personal'),
-    SICK('sick'),
-    FLOATING('floating')
+    PERSONAL('Personal'),
+    SICK('Sick'),
+    FLOATING('Floating')
 
     public value
 

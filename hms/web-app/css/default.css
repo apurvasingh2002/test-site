@@ -20,3 +20,22 @@
     width:200px;
     background-color:#ccc;
 }
+.form-table{
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}
+.form-table td{
+    padding: 2px;
+}
+.form-table td input{
+    width: 200px;
+}
+.form-table td label{
+    padding-top: 10px;
+}
+.form-table td input[type=button]{
+    /*width: 100px;*/
+    float: left;
+    height: 40px;
+}

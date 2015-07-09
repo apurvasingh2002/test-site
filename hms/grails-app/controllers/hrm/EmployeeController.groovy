@@ -26,15 +26,15 @@ class EmployeeController {
     }
 
     def renderLeave(){
-
+        render template: 'leave' , model: [leaveCount: LeaveSetting.count()]
     }
 
     def renderPayroll(){
-
+        render template: 'payroll' , model: [payrollCount: Payroll.count()]
     }
 
-    def show(Employee employeeInstance) {
-        respond employeeInstance
+    def renderEmployeeForm() {
+        render template: 'employeeForm'
     }
 
     def create() {

@@ -2,9 +2,8 @@
     <h1>Employee List</h1>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <g:link class="create" action="create">Add New Employee</g:link>
+            <a onclick="getForm('EmployeeForm')">Add New Employee</a>
         </div>
-
         <div class="panel-body">
             <div class="table-responsive table-bordered">
                 <table class="table">

@@ -5,15 +5,14 @@ package Enums
  */
 enum LeaveStatus {
 
-    PENDING('pending'),
-    UNAPPROVED('unapproved'),
-    APPROVED('approved')
+    PENDING('Pending'),
+    UNAPPROVED('Unapproved'),
+    APPROVED('Approved')
 
     public value
 
     public LeaveStatus(String val){
         this.value=val
     }
-
 
 }

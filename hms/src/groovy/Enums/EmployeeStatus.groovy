@@ -5,11 +5,11 @@ package Enums
  */
 enum EmployeeStatus {
 
-    PERMANENT('permanent'),
-    TERMED('termed'),
-    SUSPENDED('suspended'),
-    TEMPORARY('temporary'),
-    PROBATION('probation')
+    PERMANENT('Permanent'),
+    TERMED('Termed'),
+    SUSPENDED('Suspended'),
+    TEMPORARY('Temporary'),
+    PROBATION('Probation')
 
     public String value
 
