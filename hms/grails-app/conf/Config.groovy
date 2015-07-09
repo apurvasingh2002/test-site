@@ -122,5 +122,5 @@ grails.plugin.springsecurity.authority.className = 'um.Role'
 grails.plugin.springsecurity.requestMap.className = 'um.RequestMap'
 grails.plugin.springsecurity.securityConfigType = 'Requestmap'
 //grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/dashboard'
-grails.plugin.springsecurity.logout.afterLogoutUrl = '/logout'
+//grails.plugin.springsecurity.logout.afterLogoutUrl = '/logout'
 grails.plugin.springsecurity.logout.postOnly = false

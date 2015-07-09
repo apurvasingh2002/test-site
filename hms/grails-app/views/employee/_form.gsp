@@ -1,56 +1,29 @@
 <%@ page import="hrm.Employee" %>
-
 <div class="row">
-
 	<div class="col-xs-4">
 		<div class=" input-group fieldcontain ${hasErrors(bean: employeeInstance, field: 'username', 'error')} required">
 			<label class="col-xs-4 control-label">Username *</label>
-			%{--<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>--}%
 		<div class="col-md-6">
 			<g:textField name="username" required="" value="${employeeInstance?.user?.username}" class="form-control" placeholder="Username"/>
-
-
 		</div>
 		</div>
 	</div>
-	%{--<div class="col-xs-4">
-		<div class=" input-group fieldcontain ${hasErrors(bean: employeeInstance, field: 'password', 'error')} required">
-			<label class="col-xs-4 control-label" >Password</label>
-
-			<div class="col-md-6">
-				<g:passwordField name="password" required="" value="${employeeInstance?.employeeId}" class="form-control" placeholder="Password"/>
-			</div>
-
-		</div>
-	</div>--}%
-
 	<div class="col-xs-4">
 		<div class=" input-group fieldcontain ${hasErrors(bean: employeeInstance, field: 'employeeId', 'error')} required">
-			%{--<label for="employeeId">
-                <g:message code="employee.employeeId.label" default="Employee Id" />
-                <span class="required-indicator">*</span>
-            </label>--}%
-
 			<label class="col-xs-4 control-label">Employee ID *</label>
 			<div class="col-md-6">
 			<g:textField name="employeeId" required="" value="${employeeInstance?.employeeId}" class="form-control" placeholder="Employee ID"/>
-
-
-		</div>
+			</div>
 		</div>
 	</div>
 </div>
 <hr>
-
 <div class="row">
 	<div class="col-xs-4">
 		<div class=" input-group fieldcontain ${hasErrors(bean: employeeInstance, field: 'firstName', 'error')} required">
-
-
 			<label class="col-xs-4 control-label">First Name *</label>
 <div class="col-md-6">
 			<g:textField name="firstName" required="" value="${employeeInstance?.firstName}" class="form-control" placeholder="First Name"/>
-
 		</div>
 		</div>
 	</div>
@@ -59,8 +32,6 @@
 			<label class="col-xs-4 control-label">M. Name</label>
 			<div class="col-md-6">
 			<g:textField name="middleName" value="${employeeInstance?.middleName}" class="form-control" placeholder="Middle Name"/>
-
-
 		</div>
 		</div>
 	</div>
@@ -69,25 +40,17 @@
 			<label class="col-xs-4 control-label">Last Name *</label>
 			<div class="col-md-6">
 			<g:textField name="lastName" required=""  value="${employeeInstance?.lastName}" class="form-control" placeholder="Last Name"/>
-
-
 		</div>
 		</div>
 	</div>
 </div>
 <hr>
-
-
 <div class="row">
 	<div class="col-xs-4">
 		<div class=" input-group fieldcontain ${hasErrors(bean: employeeInstance, field: 'email', 'error')} required">
-
-
 			<label class="col-xs-4 control-label">Email *</label>
-
 			<div class="col-md-6">
 			<g:textField name="email" required="" value="${employeeInstance?.email}" class="form-control" placeholder="Email"/>
-
 		</div>
 		</div>
 	</div>
@@ -96,9 +59,6 @@
 			<label class="col-xs-4 control-label">Updated</label>
 			<div class="col-md-6">
 			<g:select  id="updatedBy" name="updatedBy.id" from="${hrm.Employee.list()}" optionKey="id" optionValue="firstName" value="${employeeInstance?.updatedBy?.id}" class="many-to-one form-control" noSelection="${[null:'Select One...']}" />
-
-
-
 		</div>
 		</div>
 	</div>
@@ -107,24 +67,17 @@
 			<label class="col-xs-4 control-label">Supervisor</label>
 			<div class="col-md-6">
 			<g:select id="supervisor" name="supervisor.id" from="${hrm.Employee.list()}" optionKey="id" optionValue="firstName" value="${employeeInstance?.supervisor?.id}" class="many-to-one form-control" noSelection="${[null:'Select One...']}" />
-
-
 		</div>
 		</div>
 	</div>
 </div>
 <hr>
-
-
 <div class="row">
 	<div class="col-xs-4">
 		<div class=" input-group fieldcontain ${hasErrors(bean: employeeInstance, field: 'alterEmail', 'error')} required">
-
-
 			<label class="col-xs-4 control-label">Alt</label>
 <div class="col-md-6">
 			<g:textField name="alterEmail" value="${employeeInstance?.alterEmail}" class="form-control" placeholder="Alter Email"/>
-
 		</div>
 		</div>
 	</div>
@@ -133,8 +86,6 @@
 			<label class="col-xs-4 control-label">File</label>
 			<div class="col-md-6">
 			<g:textField name="filename" value="${employeeInstance?.filename}" class="form-control" placeholder="File "/>
-
-
 		</div>
 		</div>
 	</div>
@@ -143,7 +94,6 @@
 			<label class="col-xs-4 control-label">Work Phone</label>
 			<div class="col-md-6">
 			<g:textField name="workPhone" value="${employeeInstance?.workPhone}" class="form-control" placeholder="Work Phone"/>
-
 		</div>
 		</div>
 	</div>

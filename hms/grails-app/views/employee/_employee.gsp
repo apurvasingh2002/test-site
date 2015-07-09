@@ -4,6 +4,7 @@
         <div class="panel-heading">
             <g:link class="create" action="create">Add New Employee</g:link>
         </div>
+
         <div class="panel-body">
             <div class="table-responsive table-bordered">
                 <table class="table">

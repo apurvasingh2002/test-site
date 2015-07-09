@@ -10,17 +10,26 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class EmployeeController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-  //  def scaffold = true
+
     def index() {
-        params.max = Math.min(params.max ?: 10, 100)
-        respond Employee.list(params), model:[employeeInstanceCount: Employee.count()]
+//        params.max = Math.min(params.max ?: 10, 100)
+//        respond Employee.list(params), model:[employeeInstanceCount: Employee.count()]
     }
 
     def renderTemplate(){
-        redirect(action: render+(params.template))
+        println params
+        redirect(action: 'render'+(params.template))
     }
 
     def renderEmployee(){
+        render template: 'employee' , model:[employeeInstanceCount: Employee.count()]
+    }
+
+    def renderLeave(){
+
+    }
+
+    def renderPayroll(){
 
     }
 

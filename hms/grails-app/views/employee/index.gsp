@@ -19,38 +19,37 @@
 	<div class="menu-container">
 		<div class="navbar-collapse">
 			<ul id="menu-top" class="nav navbar-nav">
-				<li><a onclick="getMenuContent('employee');">Employee</a></li>
-				<li><a onclick="getMenuContent('leave');">Leave</a></li>
-				<li><a onclick="getMenuContent('payroll');">Payroll</a></li>
+				<li><a onclick="getMenuContent('Employee');">Employee</a></li>
+				<li><a onclick="getMenuContent('Leave');">Leave</a></li>
+				<li><a onclick="getMenuContent('Payroll');">Payroll</a></li>
 				<li><a onclick="">Rooster</a></li>
 			</ul>
 		</div>
 	</div>
 </div>
 <div id="body-container">
-	<g:render template="employee" model="[employeeInstanceCount:employeeInstanceCount]"/>
+
 </div>
 <script type="text/javascript">
 	$(document).ready(function(){
 		var menuSection = $('.menu-section');
 		$('nav').html(menuSection.html());
 		menuSection.remove();
-		$("#menu-top").find('li:first-child').css({'background-color':'#C36464'});
-
+		$("#menu-top").find('li:first-child').css({'background-color':'#C36464'}).find('a').click();
 	});
 	function getMenuContent(template){
 		$.ajax({
-			url:'${createLink(controller: 'employee' , action: 'index')}',
+			url:'${createLink(controller: 'employee' , action: 'renderTemplate')}',
 			data:{template:template},
 			method:'POST',
 			beforeSend : function(){
 				showLoadingScreen();
 			},
-			complete:function(data){
-				$("#body-container").html(data);
-			},
-			success:function(){
+			complete:function(){
 				hideLoadingScreen();
+			},
+			success:function(data){
+				$("#body-container").html(data);
 			}
 		});
 	}
