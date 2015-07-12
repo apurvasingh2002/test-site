@@ -2,56 +2,28 @@
 <div class="modal-dialog" style="width: 800px;">
     <div class="modal-content">
         %{--<g:form url="[resource:leaveSettingInstance, controller: 'employee', action:leaveSettingInstance.id?'update':'save' ]"  method="${leaveSettingInstance.id?'POST':'PUT'}" >--}%
-        <g:form url="[controller: 'employee', action:leaveSettingInstance.id?'updateLeave':'saveLeave',params:[id:leaveSettingInstance.id] ]"  method="${leaveSettingInstance.id?'POST':'PUT'}" >
+        <g:form url="[controller: 'employee', action:payRollInstance.id?'updatePayRoll':'savePayRoll',params:[id:payRollInstance.id] ]"  method="${payRollInstance.id?'POST':'PUT'}" >
 
-            <g:hiddenField name="version" value="${leaveSettingInstance?.version}" />
+            <g:hiddenField name="version" value="${payRollInstance?.version}" />
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Create Leave</h4>
+                <h4 class="modal-title">Create PayRoll</h4>
             </div>
             <div class="modal-body">
                 <table class="form-table">
                     <tr>
-                        <td><label>Leave Type:<g:select noSelection="${[null:'Select One...']}" name="type" from="${Enums.LeaveType?.values()}" keys="${Enums.LeaveType.values()*.name()}" required="" value="${leaveSettingInstance?.type?.name()}" /></label></td>
-                        <td>
-                            <label>Leave Status:
-                            <g:if test="${leaveSettingInstance.id}">
-                                <g:select name="status" from="${Enums.LeaveStatus?.values()}" keys="${Enums.LeaveStatus.values()*.name()}" required="" value="${leaveSettingInstance?.status?.name()}" />
-                            </g:if>
-                            <g:else>
-                                Pending
-                            </g:else>
 
 
-                        </label>
+                        <td><label>Employee: <g:select name="employee" from="${hrm.Employee.list()}" optionValue="firstName" optionKey="id" required="" value="${payRollInstance?.employee?.id}" noSelection="${[null:'Select One...']}"></g:select></label></td>
+                        <td></td>
 
-                        </td>
 
                     </tr>
                     <tr>
-                        <td><label>From Date: <g:datePicker name="fromDate" precision="day"  value="${leaveSettingInstance?.fromDate}"  /></label></td>
-                        <td><label>To Date: <g:datePicker name="toDate" precision="day"  value="${leaveSettingInstance?.toDate}"  /></label></td>
+                        <td><label>Promotion Date: <g:datePicker name="promotionDate" precision="day"  value="${payRollInstance?.promotionDate}"  /></label></td>
+                        <td><label>Salary: <g:textField name="salary" required="" value="${payRollInstance?.salary}"/></label></td>
                     </tr>
-                    <tr>
-                        <td><label>Leave Duration:
-                            <div>
-                                <g:radioGroup name="duration"
-                                              labels="['First Half','Second Half','Full']"
-                                              values="[0.5,1.0,0.0]"
-                                              value="${leaveSettingInstance?.duration?leaveSettingInstance?.duration:0.0}">
-                                    <label  style="width: 100px !important">
-                                        <span class="radioSpan" >${it.radio}${it.label}</span>
-                                    </label>
-                                </g:radioGroup>
 
-                            </div>
-                            <div style="clear: both"></div>
-                        </label></td>
-
-                        <td><label>Reason: <g:textArea name="reason" required="" value="${leaveSettingInstance?.reason}"/></label></td>
-
-
-                    </tr>
                 </table>
             </div>
             <div class="modal-footer">

@@ -38,7 +38,7 @@ class Employee {
 
 
     def getFullName() {
-        return firstName+" "+(middleName?middleName:" ")+""+lastName
+        return firstName.capitalize()+" "+(middleName?middleName.capitalize():" ")+""+lastName.capitalize()
     }
 
     static constraints = {

@@ -14,16 +14,18 @@
                         <th>Phone</th>
                         <th>Email</th>
                         <th>Department</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     <g:each in="${employeeInstanceList}" status="i" var="employeeInstance">
                         <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-                            <td><g:link action="show" id="${employeeInstance.id}">${fieldValue(bean: employeeInstance, field: "employeeId")}</g:link></td>
+                            <td>${fieldValue(bean: employeeInstance, field: "employeeId")}</td>
                             <td>${fieldValue(bean: employeeInstance, field: "fullName")}</td>
                             <td>${fieldValue(bean: employeeInstance, field: "mobile")}</td>
                             <td>${fieldValue(bean: employeeInstance, field: "email")}</td>
                             <td>${fieldValue(bean: employeeInstance, field: "departments.name")}</td>
+                            <td><a href="#" class="fa fa-edit" onclick="getForm('EmployeeForm',${employeeInstance.id})"  title="Edit" /></td>
                         </tr>
                     </g:each>
                     </tbody>

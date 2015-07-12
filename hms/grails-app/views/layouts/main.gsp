@@ -31,9 +31,9 @@
 		<span class="notification-container"></span>
 	</div>
 	<div class="logo">
-		<a class="navbar-brand" href="#">
+		<g:link class="navbar-brand" controller="dashboard" action="index">
 			<img src="${resource(dir: 'images', file:'logo.png')}" alt="Spastika"/>
-		</a>
+		</g:link>
 	</div>
 	<g:if test="${sec.loggedInUserInfo(field:"username")}">
 		<div class="user-profile">
@@ -58,7 +58,7 @@
 <footer>
 	<div class="footer-container">
 		<span>
-			Developed By :<a href="http://www.spastika.com/" target="_blank"> www.Spastika.com </a>| Contact: 01-4123456
+			Developed By :<a href="http://www.spastika.com/" target="_blank"> www.spastika.com </a>| Contact: 01-4123456
 		</span>
 	</div>
 </footer>

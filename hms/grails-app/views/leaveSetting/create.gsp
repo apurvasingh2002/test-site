@@ -26,6 +26,7 @@
 			</ul>
 			</g:hasErrors>
 			<g:form url="[resource:leaveSettingInstance, action:'save']" >
+
 				<fieldset class="form">
 					<g:render template="form"/>
 				</fieldset>

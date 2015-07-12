@@ -16,7 +16,7 @@
 		<g:message code="leaveSetting.reason.label" default="Reason" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:textField name="reason" required="" value="${leaveSettingInstance?.reason}"/>
+	<g:textArea name="reason" required="" value="${leaveSettingInstance?.reason}"/>
 
 </div>
 
@@ -29,14 +29,18 @@
 		
 	</label>
 
-	<div style="text-align: center;">
+	<div>
 	%{--<g:checkBox name="first" value="${leaveSettingInstance?.first}" />--}%
-	<g:radioGroup name="duration"
-				  labels="['First Half','Second Half','Full']"
-				  values="[0.5,1.0,0.0]"
-				  value="${leaveSettingInstance?.duration}">
-		<p>${it.label} ${it.radio}</p>
-	</g:radioGroup>
+		<g:radioGroup name="duration"
+					  labels="['First Half','Second Half','Full']"
+					  values="[0.5,1.0,0.0]"
+					  value="${leaveSettingInstance?.duration?leaveSettingInstance?.duration:0.0}">
+		%{--<p>${it.label} ${it.radio}</p>--}%
+			<label>
+				<span class="radioSpan">${it.radio}</span>
+				${it.label}
+			</label>
+		</g:radioGroup>
 
 	</div>
 	<div style="clear: both"></div>

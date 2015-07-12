@@ -26,7 +26,6 @@ class LeaveSettingController {
 
     @Transactional
     def save(LeaveSetting leaveSettingInstance) {
-
         leaveSettingInstance.employee=Employee.get(1);
         leaveSettingInstance.days=  leaveSettingInstance.toDate -  leaveSettingInstance.fromDate
         leaveSettingInstance.status=LeaveStatus.UNAPPROVED;
