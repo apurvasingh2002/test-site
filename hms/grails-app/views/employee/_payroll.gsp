@@ -1,5 +1,5 @@
 <div id="list-employee" class="content scaffold-list" role="main">
-    <h1>Leave List</h1>
+    <h1>Payroll</h1>
     <div class="panel panel-default">
         <div class="panel-heading">
             <a onclick="getForm('PayRollForm')">Add PayRoll</a>

@@ -2,7 +2,7 @@
 <div class="modal-dialog" style="width: 800px;">
     <div class="modal-content">
         %{--<form>--}%
-<g:form url="[resource:employeeInstance, action:'save']" >
+<g:form url="[resource:employeeInstance, action:'saveEmployee']" >
     %{--<g:form url="[resource:leaveSettingInstance, action:'update']" method="PUT" >--}%
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -46,13 +46,9 @@
                         <td><label>Termination Date: <input type="text" name="terminatedDate" value="${employeeInstance?.terminatedDate}" /></label></td>
                     </tr>
                     <tr>
-                        %{--<td colspan="3"></td>--}%
-
                        <td><label style="text-align: left;">Supervisor: <g:select noSelection="${[null:'Select One...']}" name="supervisor" from="${Employee.list()}" optionValue="firstName" optionKey="id"   value="${employeeInstance?.supervisor}"/></label></td>
                        <td><label>File Name: <input type="text" name="filename"  value="${employeeInstance?.filename}" /></label></td>
                        <td><label><input type="button" value="Browse" %{--style="margin-right: 20px; width: 100px;"--}%></label></td>
-
-
                     </tr>
                 </table>
             </div>

@@ -26,3 +26,13 @@ function makeAjaxCall(url,data,updateDiv,beforeSend,complete,success){
         }
     });
 }
+
+function showNotification(msg){
+    var notification = $("#notificationContainer").html(msg).parent('div');
+    notification.animate({
+        top: 0
+    });
+    setTimeout(function(){
+        notification.click();
+    },3000);
+}

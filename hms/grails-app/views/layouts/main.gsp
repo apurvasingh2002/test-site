@@ -28,7 +28,7 @@
 %{--<div id="grailsLogo" role="banner"><a href="http://grails.org"><asset:image src="grails_logo.png" alt="Grails"/></a></div>--}%
 <header>
 	<div class="notification-top">
-		<span class="notification-container"></span>
+		<span id="notificationContainer"></span>
 	</div>
 	<div class="logo">
 		<g:link class="navbar-brand" controller="dashboard" action="index">

@@ -27,9 +27,9 @@
 		</div>
 	</div>
 </div>
-<g:if test="${flash.message}">
-	<div class="message alert alert-success" role="status">${flash.message}</div>
-</g:if>
+%{--<g:if test="${flash.message}">--}%
+	%{--<div class="message alert alert-success" role="status">${flash.message}</div>--}%
+%{--</g:if>--}%
 <g:hasErrors bean="${errorInstance}">
 	<ul class="errors" role="alert">
 		<g:eachError bean="${errorInstance}" var="error">
@@ -38,25 +38,19 @@
 	</ul>
 </g:hasErrors>
 <div id="body-container">
-
 </div>
 <script type="text/javascript">
 	var tab = '${template}';
-
 	$(document).ready(function(){
 		var menuSection = $('.menu-section');
 		$('nav').html(menuSection.html());
 		menuSection.remove();
-
-			$("#menu-top").find('li').each(function(){
-				if($(this).children('a').html() == tab){
-					$(this).children('a').click();
-				}
-			});
-
-
-
-
+		if('${flash.message}' != '') showNotification('${flash.message}');
+		$("#menu-top").find('li').each(function(){
+			if($(this).children('a').html() == tab){
+				$(this).children('a').click();
+			}
+		});
 	});
 	function getMenuContent(ele){
 		$("#menu-top").find('li').each(function(){
@@ -72,10 +66,6 @@
 		var data = {template:template,id:id};
 		makeAjaxCall(url,data,$("#modalBox"),null,function(){$("#modalBox").modal()});
 	}
-
-
-
-
 </script>
 </body>
 </html>

@@ -8,14 +8,15 @@ import um.UserRole
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Transactional(readOnly = true)
+//@Transactional(readOnly = true)
 class EmployeeController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def springSecurityService
+    def employeeService
 
     def index() {
-          [template: (session.activeTab ? session.activeTab : 'Employee')]
+          model:[template: (session.activeTab ? session.activeTab : 'Employee')]
 //        params.max = Math.min(params.max ?: 10, 100)
 //        respond Employee.list(params), model:[employeeInstanceCount: Employee.count()]
     }
@@ -32,8 +33,6 @@ class EmployeeController {
     def renderEmployee(){
         render template: 'employee' , model:[employeeInstanceList:Employee.list(params),employeeInstanceCount: Employee.count()]
     }
-
-
 
     def renderLeave(){
         render template: 'leave' , model: [leaveInstanceList:LeaveSetting.list(params),leaveCount: LeaveSetting.count()]
@@ -71,30 +70,20 @@ class EmployeeController {
             payRollInstance=Payroll.get(params.id)
         else
             payRollInstance=new Payroll(params)
-
         render template: 'payRollForm' ,model:[payRollInstance:payRollInstance]
     }
 
-    def create() {
-        respond new Employee()
-    }
-
-    @Transactional
+//    @Transactional
     def saveEmployee() {
-        def employee = new Employee(params)
-        def newUser = new User(params.username,"password").save(flush: true);
-        UserRole.create(newUser,new Role("ROLE_EMPLOYEE").save(flush: true));
-        println employee
-        employee.user = newUser
-        try{
-            employee.save(flush:true){
-                flash.message = message(code: 'default.created.message', args: ['Employee', employee.id])
+        println params
+        def (status,message) = employeeService.saveEmployee(params)
+        println "status :: "+status+" message :: "+message
+        if(status){
+                flash.message = message(code: 'default.created.message', args: ['Employee'])
                 redirect(index());
-            }
-        }
-        catch(Exception e){
-            println e.getMessage()
-            redirect(action:  'create')
+        }else {
+            flash.message = message
+            redirect(action: 'index')
         }
     }
 

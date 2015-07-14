@@ -19,7 +19,7 @@ header .notification-top{
     width: 60%;
     left: 20%;
     position: absolute;
-    visibility: hidden;
+    top: -40px;
 }
 header .logo{
     background-color: #080808;
