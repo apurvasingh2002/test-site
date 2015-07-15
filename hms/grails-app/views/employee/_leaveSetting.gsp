@@ -2,7 +2,7 @@
     <h1>Leave List</h1>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <a onclick="getForm('LeaveForm')">Apply Leave</a>
+            <a onclick="getForm('leaveForm','LeaveSetting')">Apply Leave</a>
         </div>
         <div class="panel-body">
             <div class="table-responsive table-bordered">
@@ -23,7 +23,7 @@
                             <td>${fieldValue(bean: leaveInstance, field: "status")}</td>
                             <td>${fieldValue(bean: leaveInstance, field: "approveBy")}</td>
                             <td>${fieldValue(bean: leaveInstance, field: "duration")}</td>
-                            <td><a href="#" class="fa fa-edit" onclick="getForm('LeaveForm',${leaveInstance.id})"  title="Edit" /></td>
+                            <td><a href="#" class="fa fa-edit" onclick="getForm('leaveForm','LeaveSetting',${leaveInstance.id})"  title="Edit"> </a></td>
                         </tr>
                     </g:each>
                     </tbody>

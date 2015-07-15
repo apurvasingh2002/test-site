@@ -2,9 +2,9 @@
 <div class="modal-dialog" style="width: 800px;">
     <div class="modal-content">
         %{--<g:form url="[resource:leaveSettingInstance, controller: 'employee', action:leaveSettingInstance.id?'update':'save' ]"  method="${leaveSettingInstance.id?'POST':'PUT'}" >--}%
-        <g:form url="[controller: 'employee', action:payRollInstance.id?'updatePayRoll':'savePayRoll',params:[id:payRollInstance.id] ]"  method="${payRollInstance.id?'POST':'PUT'}" >
+        <g:form url="[controller: 'employee', action:objectInstance.id?'updatePayRoll':'savePayRoll',params:[id:objectInstance.id] ]"  method="${objectInstance.id?'POST':'PUT'}" >
 
-            <g:hiddenField name="version" value="${payRollInstance?.version}" />
+            <g:hiddenField name="version" value="${objectInstance?.version}" />
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Create PayRoll</h4>
@@ -14,14 +14,14 @@
                     <tr>
 
 
-                        <td><label>Employee: <g:select name="employee" from="${hrm.Employee.list()}" optionValue="firstName" optionKey="id" required="" value="${payRollInstance?.employee?.id}" noSelection="${[null:'Select One...']}"></g:select></label></td>
+                        <td><label>Employee: <g:select name="employee" from="${hrm.Employee.list()}" optionValue="firstName" optionKey="id" required="" value="${objectInstance?.employee?.id}" noSelection="${[null:'Select One...']}"></g:select></label></td>
                         <td></td>
 
 
                     </tr>
                     <tr>
-                        <td><label>Promotion Date: <g:datePicker name="promotionDate" precision="day"  value="${payRollInstance?.promotionDate}"  /></label></td>
-                        <td><label>Salary: <g:textField name="salary" required="" value="${payRollInstance?.salary}"/></label></td>
+                        <td><label>Promotion Date: <g:datePicker name="promotionDate" precision="day"  value="${objectInstance?.promotionDate}"  /></label></td>
+                        <td><label>Salary: <g:textField name="salary" required="" value="${objectInstance?.salary}"/></label></td>
                     </tr>
 
                 </table>

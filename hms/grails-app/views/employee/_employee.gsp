@@ -2,7 +2,7 @@
     <h1>Employee List</h1>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <a onclick="getForm('EmployeeForm')">Add New Employee</a>
+            <a onclick="getForm('EmployeeForm','Employee')">Add New Employee</a>
         </div>
         <div class="panel-body">
             <div class="table-responsive table-bordered">
@@ -25,7 +25,7 @@
                             <td>${fieldValue(bean: employeeInstance, field: "mobile")}</td>
                             <td>${fieldValue(bean: employeeInstance, field: "email")}</td>
                             <td>${fieldValue(bean: employeeInstance, field: "departments.name")}</td>
-                            <td><a href="#" class="fa fa-edit" onclick="getForm('EmployeeForm',${employeeInstance.id})"  title="Edit" /></td>
+                            <td><a href="#" class="fa fa-edit" onclick="getForm('EmployeeForm','Employee',${employeeInstance.id})" title="Edit"></a></td>
                         </tr>
                     </g:each>
                     </tbody>
