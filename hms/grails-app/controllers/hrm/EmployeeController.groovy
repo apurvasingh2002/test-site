@@ -141,8 +141,9 @@ class EmployeeController {
     @Transactional
     def saveLeave() {
         def leaveSettingInstance=new LeaveSetting(params)
-        leaveSettingInstance.employee=Employee.findByUser(springSecurityService.currentUser)
-        leaveSettingInstance.days=  params.toDate -  params.fromDate
+        params.toDate=params.date('toDate', 'dd/MM/yyyy')
+        params.fromDate=params.date('fromDate', 'dd/MM/yyyy')
+        params.days=  params.toDate -  params.fromDate
         leaveSettingInstance.status=LeaveStatus.UNAPPROVED;
         leaveSettingInstance.validate()
 
@@ -176,9 +177,15 @@ class EmployeeController {
 
 
     @Transactional
-    def updateLeave(LeaveSetting leaveSettingInstance) {
-        leaveSettingInstance.days=  leaveSettingInstance.toDate -  leaveSettingInstance.fromDate
-        leaveSettingInstance.validate()
+    def updateLeave(LeaveSetting lins) {
+
+        def leaveSettingInstance=LeaveSetting.get(params.id)
+        params.toDate=params.date('toDate', 'dd/MM/yyyy')
+        params.fromDate=params.date('fromDate', 'dd/MM/yyyy')
+        params.days=  params.toDate -  params.fromDate
+        leaveSettingInstance.properties=params
+
+      //  leaveSettingInstance.validate()
 
         if (leaveSettingInstance == null) {
             notFound()

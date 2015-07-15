@@ -17,11 +17,14 @@
 	<script type="text/javascript" src="${resource(dir:'js',file:'jquery-1.11.1.js')}"></script>
 	<script type="text/javascript" src="${resource(dir:'js',file:'bootstrap.js')}"></script>
 	<script type="text/javascript" src="${resource(dir:'js',file:'default.js')}"></script>
+	<script type="text/javascript" src="${resource(dir:'js',file:'bootstrap-datepicker.min.js')}"></script>
+
 	<link rel="stylesheet"  type="text/css"  href="${resource(dir:'css',file:'bootstrap.css')}" media="screen" />
 	%{--<link rel="stylesheet"  type="text/css"  href="${resource(dir:'css',file:'style.css')}" media="screen" />--}%
 	<link rel="stylesheet"  type="text/css"  href="${resource(dir:'css',file:'main-layout.css')}" media="screen" />
 	<link rel="stylesheet"  type="text/css"  href="${resource(dir:'css',file:'default.css')}" media="screen" />
 	<link rel="stylesheet"  type="text/css"  href="${resource(dir:'css',file:'font-awesome.css')}" media="screen" />
+	<link rel="stylesheet"  type="text/css"  href="${resource(dir:'css',file:'bootstrap-datepicker.min.css')}" media="screen" />
 	<g:layoutHead/>
 </head>
 <body>

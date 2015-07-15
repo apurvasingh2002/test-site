@@ -11,6 +11,18 @@
             </div>
             <div class="modal-body">
                 <table class="form-table">
+
+                    <tr>
+                        <td><label>Employee:
+                            %{--<g:select noSelection="${[null:'Select One...']}" name="employee.id" from="${hrm.Employee.list()}" optionValue="firstName" optionKey="id" required="" value="${leaveSettingInstance?.employee?.id}" />--}%
+                        <g:select noSelection="${[null:'Select One...']}"  id="employee" name="employee" from="${hrm.Employee.list()}" optionKey="id" optionValue="firstName"  required="" value="${leaveSettingInstance?.employee?.id}" class="many-to-one"/>
+                        </label></td>
+                        <td>
+
+
+                        </td>
+
+                    </tr>
                     <tr>
                         <td><label>Leave Type:<g:select noSelection="${[null:'Select One...']}" name="type" from="${Enums.LeaveType?.values()}" keys="${Enums.LeaveType.values()*.name()}" required="" value="${leaveSettingInstance?.type?.name()}" /></label></td>
                         <td>
@@ -29,8 +41,16 @@
 
                     </tr>
                     <tr>
-                        <td><label>From Date: <g:datePicker name="fromDate" precision="day"  value="${leaveSettingInstance?.fromDate}"  /></label></td>
-                        <td><label>To Date: <g:datePicker name="toDate" precision="day"  value="${leaveSettingInstance?.toDate}"  /></label></td>
+                        <td><label>From Date:
+                            %{--<g:datePicker name="fromDate" precision="day"  value="${leaveSettingInstance?.fromDate}"  />--}%
+                            <input  name="fromDate" placeholder="From Date" id="fromDate" data-date-format="dd/mm/yyyy" data-provide="datepicker" value="${formatDate(format: 'dd/MM/yyyy', date: leaveSettingInstance?.fromDate)}" >
+
+                        </label></td>
+                        <td><label>To Date:
+                            <input  name="toDate" placeholder="To Date" id="toDate" data-date-format="dd/mm/yyyy" data-provide="datepicker" value="${formatDate(format: 'dd/MM/yyyy', date: leaveSettingInstance?.toDate)}" >
+
+
+                        </label></td>
                     </tr>
                     <tr>
                         <td><label>Leave Duration:
