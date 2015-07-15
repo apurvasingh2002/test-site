@@ -76,7 +76,7 @@ class EmployeeController {
         render template: 'payRollForm' ,model:[payRollInstance:payRollInstance]
     }
 
-//    @Transactional
+ /*   @Transactional
     def saveEmployee() {
         println params
         def (status,message) = employeeService.saveEmployee(params)
@@ -88,6 +88,40 @@ class EmployeeController {
             flash.message = message
             redirect(action: 'index')
         }
+    }*/
+
+    @Transactional
+    def saveEmployee() {
+
+        def employeeInstance=new Employee()
+        params.effectiveDate=params.date('effectiveDate', 'dd/MM/yyyy')
+        params.dateOfBirth=params.date('dateOfBirth', 'dd/MM/yyyy')
+        params.joinDate=  params.date('joinDate', 'dd/MM/yyyy')
+        params.terminatedDate=params.date('terminatedDate', 'dd/MM/yyyy')
+        employeeInstance.properties=params;
+        employeeInstance.validate()
+
+        def map=[:]
+        if (employeeInstance == null) {
+            map.state=0
+            map.msg="Not Found"
+        }
+
+        if (employeeInstance.hasErrors()) {
+            map.state=0
+            map.msg=[]
+            for (fieldErrors in employeeInstance.errors) {
+                for (error in fieldErrors.allErrors) {
+                    map.msg << messageSource.getMessage(error, locale)
+                }
+            }
+        }
+
+        if(employeeInstance.save(flush: true)){
+            map.state=1
+            map.msg="Employee successfully created: "+employeeInstance.getFullName();
+        }
+        render map as JSON
     }
 
     def edit(Employee employeeInstance) {
@@ -95,23 +129,36 @@ class EmployeeController {
     }
 
     @Transactional
-    def update(Employee employeeInstance) {
+    def updateEmployee() {
+        def employeeInstance=Employee.get(params.id)
+        params.effectiveDate=params.date('effectiveDate', 'dd/MM/yyyy')
+        params.dateOfBirth=params.date('dateOfBirth', 'dd/MM/yyyy')
+        params.joinDate=  params.date('joinDate', 'dd/MM/yyyy')
+        params.terminatedDate=params.date('terminatedDate', 'dd/MM/yyyy')
+        employeeInstance.properties=params;
+        employeeInstance.validate()
+
+        def map=[:]
         if (employeeInstance == null) {
-            notFound()
-            return
+            map.state=0
+            map.msg="Not Found"
         }
+
         if (employeeInstance.hasErrors()) {
-            respond employeeInstance.errors, view:'edit'
-            return
-        }
-        employeeInstance.save flush:true
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'Employee.label', default: 'Employee'), employeeInstance.id])
-                redirect employeeInstance
+            map.state=0
+            map.msg=[]
+            for (fieldErrors in employeeInstance.errors) {
+                for (error in fieldErrors.allErrors) {
+                    map.msg << messageSource.getMessage(error, locale)
+                }
             }
-            '*'{ respond employeeInstance, [status: OK] }
         }
+
+        if(employeeInstance.save(flush: true)){
+            map.state=1
+            map.msg="Employee successfully updated: "+employeeInstance.getFullName();
+        }
+        render map as JSON
     }
 
     @Transactional
@@ -143,11 +190,12 @@ class EmployeeController {
 
     @Transactional
     def saveLeave() {
-        def leaveSettingInstance=new LeaveSetting(params)
+        def leaveSettingInstance=new LeaveSetting()
         params.toDate=params.date('toDate', 'dd/MM/yyyy')
         params.fromDate=params.date('fromDate', 'dd/MM/yyyy')
         params.days=  params.toDate -  params.fromDate
-        leaveSettingInstance.status=LeaveStatus.UNAPPROVED;
+        params.status=LeaveStatus.UNAPPROVED;
+        leaveSettingInstance.properties=params;
         leaveSettingInstance.validate()
 
         def map=[:]
@@ -176,8 +224,7 @@ class EmployeeController {
 
 
     @Transactional
-    def updateLeave(LeaveSetting lins) {
-
+    def updateLeave() {
         def leaveSettingInstance=LeaveSetting.get(params.id)
         params.toDate=params.date('toDate', 'dd/MM/yyyy')
         params.fromDate=params.date('fromDate', 'dd/MM/yyyy')
@@ -212,57 +259,66 @@ class EmployeeController {
 
     @Transactional
     def savePayRoll() {
-        def payrollInstance=new Payroll(params)
+        def payrollInstance=new Payroll()
+        params.promotionDate=params.date('promotionDate', 'dd/MM/yyyy')
+        payrollInstance.properties=params
+        payrollInstance.validate()
 
+
+        def map=[:]
         if (payrollInstance == null) {
-            notFound()
-            return
+            map.state=0
+            map.msg="Not Found"
         }
 
         if (payrollInstance.hasErrors()) {
-
-            render  view: 'index',model: [errorInstance:payrollInstance.errors,template:session.activeTab]
-          //  respond payrollInstance.errors, view: 'create'
-            return
+            map.state=0
+            map.msg=[]
+            for (fieldErrors in payrollInstance.errors) {
+                for (error in fieldErrors.allErrors) {
+                    map.msg << messageSource.getMessage(error, locale)
+                }
+            }
         }
 
-        payrollInstance.save flush: true
-        flash.message="PayRoll successfully created for "+payrollInstance.employee.getFullName()
-        redirect(action: "index")
+        if(payrollInstance.save(flush: true)){
+            map.state=1
+            map.msg="Leave successfully updated for "+payrollInstance.employee.getFullName();
+        }
 
-        /*request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'payroll.label', default: 'Payroll'), payrollInstance.id])
-                redirect payrollInstance
-            }
-            '*' { respond payrollInstance, [status: CREATED] }
-        }*/
+        render map as JSON
     }
 
     @Transactional
-    def updatePayRoll(Payroll payrollInstance) {
+    def updatePayRoll() {
+        def payrollInstance=Payroll.get(params.id)
+        params.promotionDate=params.date('promotionDate', 'dd/MM/yyyy')
+        payrollInstance.properties=params
+        payrollInstance.validate()
+
+
+        def map=[:]
         if (payrollInstance == null) {
-            notFound()
-            return
+            map.state=0
+            map.msg="Not Found"
         }
 
         if (payrollInstance.hasErrors()) {
-            render  view: 'index',model: [errorInstance:payrollInstance.errors,template:session.activeTab,openForm:"PayRollForm"]
-           // respond payrollInstance.errors, view: 'edit'
-            return
+            map.state=0
+            map.msg=[]
+            for (fieldErrors in payrollInstance.errors) {
+                for (error in fieldErrors.allErrors) {
+                    map.msg << messageSource.getMessage(error, locale)
+                }
+            }
         }
 
-        payrollInstance.save flush: true
+        if(payrollInstance.save(flush: true)){
+            map.state=1
+            map.msg="Leave successfully updated for "+payrollInstance.employee.getFullName();
+        }
 
-        flash.message="PayRoll successfully updated for "+payrollInstance.employee.getFullName()
-        redirect(action: "index")
-        /*request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'Payroll.label', default: 'Payroll'), payrollInstance.id])
-                redirect payrollInstance
-            }
-            '*' { respond payrollInstance, [status: OK] }
-        }*/
+        render map as JSON
     }
 
 

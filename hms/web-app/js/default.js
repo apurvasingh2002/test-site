@@ -36,3 +36,11 @@ function showNotification(msg){
         notification.click();
     },3000);
 }
+
+
+function classCheck(){
+    $(".alert-success").html("");
+    $(".alert-success").addClass("hide");
+    $(".alert-danger").html("");
+    $(".alert-danger").addClass("hide");
+}

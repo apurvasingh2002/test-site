@@ -20,7 +20,7 @@
                         <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
                             <td> ${payRollInstance.employee.getFullName()}</td>
                             <td>${fieldValue(bean: payRollInstance, field: "salary")}</td>
-                            <td>${fieldValue(bean: payRollInstance, field: "promotionDate")}</td>
+                            <td><g:formatDate format="dd/MM/yyyy" date="${payRollInstance.promotionDate}"/> </td>
                             <td><a href="#" class="fa fa-edit" onclick="getForm('PayRollForm',${payRollInstance.id})"  title="Edit" /></td>
                         </tr>
                     </g:each>

@@ -39,3 +39,12 @@
     float: left;
     height: 40px;
 }
+
+div.alert-danger{
+    max-height: 140px !important;
+    overflow-y: auto;
+}
+
+a{
+    cursor: pointer;
+}

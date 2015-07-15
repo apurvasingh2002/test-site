@@ -68,23 +68,23 @@
 		makeAjaxCall(url,data,$("#modalBox"),null,function(){$("#modalBox").modal()});
 	}
 
-	function submitForm(){
-		var form=$('#gForm').serialize();
-		var url=$('#gForm').attr('action');
-		$(".alert-success").hasClass("hide")?$(".alert-success").html("") :$(".alert-success").html("").addClass("hide") ;
-		$(".alert-danger").hasClass("hide")?$(".alert-danger").html("") :$(".alert-danger").html("").addClass("hide") ;
-		var type='Leave';
+	function submitForm(updateDiv){
+		var $this,url,form,tempData;
+		$this=$("#gForm");
+		form=$this.serialize();
+		url=$this.attr('action');
+		tempData={template:updateDiv};
+		classCheck();
 		$.ajax({
 			url:url,
-			data:form?form:{},
+			data:form?form:[],
 			async:false,
 			method:'POST',
 			success:function(resp){
 				if(resp.state==0){
-					console.log(jQuery.type(resp.msg))
 					if(jQuery.type(resp.msg)=="array"){
 						$.each(resp.msg,function(i,value){
-							$(".alert-danger").append(value).removeClass("hide");
+							$(".alert-danger").append(value+"<br>").removeClass("hide");
 						})
 					}else{
 						$(".alert-danger").append(resp.msg).removeClass("hide");;
@@ -92,13 +92,18 @@
 
 				}else if(resp.state==1){
 					$("#modalBox").modal("hide");
-					$(".alert-success").html(resp.msg).removeClass("hide");;
-					makeAjaxCall(${createLink(action: 'renderTemplate')},type,$("#body-container"));
+					$(".alert-success").html(resp.msg).removeClass("hide");
+					makeAjaxCall('${createLink(action: 'renderTemplate')}',tempData,$("#body-container"));
 				}
 
 			},
 			error:function(){
 				$("#modalBox").modal("hide")
+			}, beforeSend : function(){
+				showLoadingScreen();
+			},
+			complete:function(){
+				hideLoadingScreen();
 			}
 		});
 	}

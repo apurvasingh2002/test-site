@@ -80,9 +80,9 @@
         </g:form>
             </div>
             <div class="modal-footer">
-                <g:submitButton name="create" class="save btn btn-primary"
-                                value="${message(code: 'default.button.create.label', default: 'Create')}" />
-                <button type="button" class="save btn btn-primary" onclick="submitForm()" >Save</button>
+                %{--<g:submitButton name="create" class="save btn btn-primary"
+                                value="${message(code: 'default.button.create.label', default: 'Create')}" />--}%
+                <button type="button" class="save btn btn-primary" onclick="submitForm('Leave')" >${leaveSettingInstance.id?'Update':'Save'}</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
 

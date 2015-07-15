@@ -38,7 +38,7 @@ class Employee {
 
 
     def getFullName() {
-        return firstName.capitalize()+" "+(middleName?middleName.capitalize():" ")+""+lastName.capitalize()
+        return firstName.capitalize()+""+(middleName?(" "+middleName.capitalize()+" "):" ")+""+lastName.capitalize()
     }
 
     static constraints = {
@@ -49,12 +49,14 @@ class Employee {
         workPhone(matches:"[0-9]+",blank:true,nullable: true)
         homePhone(matches: "[0-9]+",blank:true,nullable: true)
         updatedBy(blank:true,nullable: true)
-        maritalStatus(inList: ["SINGLE", "MARRIED", "DIVORCED"],blank:false,nullable: false)
+        maritalStatus(inList: ["SINGLE", "MARRIED", "DIVORCED","WIDOWED"],blank:false,nullable: false)
         supervisor(blank:true,nullable: true)
         middleName(blank:true,nullable: true)
         terminatedDate(blank:true,nullable: true)
         alterEmail(email: true,blank:true,nullable: true)
         filename(blank:true,nullable: true)
         temporaryAddress(blank:true,nullable: true)
+        gender(inList: ['M','F','T'])
+
     }
 }
