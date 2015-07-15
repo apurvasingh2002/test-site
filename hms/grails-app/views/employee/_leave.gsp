@@ -24,7 +24,7 @@
                             <td>${fieldValue(bean: leaveInstance, field: "status")}</td>
                             <td>${fieldValue(bean: leaveInstance, field: "approveBy")}</td>
                             <td>${fieldValue(bean: leaveInstance, field: "days")}</td>
-                            <td></td>
+                            <td>${(leaveInstance.duration==0.0)?'Full Day':(leaveInstance.duration==1.0)?'Second Half':'First Half'}</td>
                             <td><a href="#" class="fa fa-edit" onclick="getForm('LeaveForm',${leaveInstance.id})"  title="Edit" /></td>
                         </tr>
                     </g:each>

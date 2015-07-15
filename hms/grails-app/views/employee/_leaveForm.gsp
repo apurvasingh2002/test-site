@@ -2,15 +2,19 @@
 <div class="modal-dialog" style="width: 800px;">
     <div class="modal-content">
         %{--<g:form url="[resource:leaveSettingInstance, controller: 'employee', action:leaveSettingInstance.id?'update':'save' ]"  method="${leaveSettingInstance.id?'POST':'PUT'}" >--}%
-        <g:form url="[controller: 'employee', action:leaveSettingInstance.id?'updateLeave':'saveLeave',params:[id:leaveSettingInstance.id] ]"  method="${leaveSettingInstance.id?'POST':'PUT'}" >
 
-            <g:hiddenField name="version" value="${leaveSettingInstance?.version}" />
+
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Create Leave</h4>
             </div>
+        <div class="message alert alert-danger hide" role="status">
+
+        </div>
             <div class="modal-body">
-                <table class="form-table">
+        <g:form id="gForm" url="[controller: 'employee', action:leaveSettingInstance.id?'updateLeave':'saveLeave',params:[id:leaveSettingInstance.id] ]"  method="${leaveSettingInstance.id?'POST':'PUT'}" >
+
+            <table class="form-table">
 
                     <tr>
                         <td><label>Employee:
@@ -73,12 +77,14 @@
 
                     </tr>
                 </table>
+        </g:form>
             </div>
             <div class="modal-footer">
                 <g:submitButton name="create" class="save btn btn-primary"
                                 value="${message(code: 'default.button.create.label', default: 'Create')}" />
+                <button type="button" class="save btn btn-primary" onclick="submitForm()" >Save</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
-        </g:form>
+
     </div>
 </div>
