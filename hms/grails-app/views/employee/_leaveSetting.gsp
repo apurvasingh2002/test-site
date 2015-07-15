@@ -2,7 +2,7 @@
     <h1>Leave List</h1>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <a onclick="getForm('LeaveForm')">Apply Leave</a>
+            <a onclick="getForm('leaveForm','LeaveSetting')">Apply Leave</a>
         </div>
         <div class="panel-body">
             <div class="table-responsive table-bordered">

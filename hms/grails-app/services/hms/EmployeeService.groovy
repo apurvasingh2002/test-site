@@ -11,22 +11,40 @@ class EmployeeService {
 
     def grailsApplication
 
+    def getGrailsDomainClass(String className){
+        Class grailsClass = grailsApplication.domainClasses.find{it.clazz.simpleName == className}.clazz
+        return grailsClass
+    }
+
     def saveEmployee(def params){
         def map = [:]
+//        println(params)
         params?.each{ key ,value ->
-            map.put(key,value)
+            if(value && !value.equals('null') && !value.equals('')){
+                map.put(key,value)
+                println "$key,$value"
+            }
         }
         if(!map.isEmpty()) {
             def newUser = new User(params.email,"password").save(flush: true);
-            UserRole.create(newUser,new Role("ROLE_EMPLOYEE").save(flush: true));
-            return genericSave(new Employee(), params)
+            UserRole.create(newUser,Role.findByAuthority("ROLE_EMPLOYEE"),true);
+            def employee = new Employee()
+            setMap(employee, map.put("user_id",newUser.id))
+            try {
+                employee.save(flush: true)
+                println(employee)
+                return [true,employee.getClass().toString()+' saved']
+            }catch (Exception e){
+                def msg = "Exception occurred while saving "+employee.getClass().toString()+" :: "+e.getMessage()
+                return [false,msg]
+            }
         }else
             return [false,"Passed Data Empty"]
     }
 
     def updateEmployee(def employee,def params){
         if(params instanceof HashMap)
-            genericSave(new Employee(),params)
+            setMap(new Employee(),params)
         else
             return "Passed Data not the instance of map"
     }
@@ -59,18 +77,12 @@ class EmployeeService {
 
     }
 
-    def genericSave(Employee object,map){
+    def setMap(object,map){
         map.each{ key , value ->
-            println "==>> $key , $value"
-            if(object.getProperty(key))
-                object.(key) = map.get(value)
-        }
-        try {
-            object.save(flush: true)
-            return [true,object.getClass().toString()+' saved']
-        }catch (Exception e){
-            def msg = "Exception occurred while saving "+object.getClass().toString()+" :: "+e.getMessage()
-            return [false,msg]
+            if(object.hasProperty(key.toString())) {
+                println "$key == $value"
+                object.(key.toString()) = value
+            }
         }
     }
 

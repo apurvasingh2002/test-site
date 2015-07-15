@@ -19,61 +19,20 @@ class EmployeeController {
     def locale = Locale.default
 
     def index() {
-          model:[template: (session.activeTab ? session.activeTab : 'Employee')]
+          model:[tabTemplate: (session.activeTab ? session.activeTab : 'Employee')]
 //        params.max = Math.min(params.max ?: 10, 100)
 //        respond Employee.list(params), model:[employeeInstanceCount: Employee.count()]
     }
 
     def renderTemplate(){
-        session.activeTab = params.template
-        redirect(action: 'render'+(params.template),params: params)
-    }
-
-    def renderFormTemplate(){
-        redirect(action: 'render'+(params.template),params: params)
-    }
-
-    def renderEmployee(){
-        render template: 'employee' , model:[employeeInstanceList:Employee.list(params),employeeInstanceCount: Employee.count()]
-    }
-
-    def renderLeave(){
-        render template: 'leave' , model: [leaveInstanceList:LeaveSetting.list(params),leaveCount: LeaveSetting.count()]
-    }
-
-    def renderPayroll(){
-        render template: 'payroll' , model: [payRollInstanceList:Payroll.list(params),payRollCount: Payroll.count()]
-    }
-
-    def renderEmployeeForm() {
-        def employee;
-        if(params.id)
-            employee=Employee.get(params.id)
-        else
-            employee=new Employee()
-
-        render template: 'employeeForm' ,model:[employeeInstance:employee]
-    }
-
-
-    def renderLeaveForm() {
-        def leaveSettingInstance;
-        if(params.id)
-            leaveSettingInstance=LeaveSetting.get(params.id)
-        else
-            leaveSettingInstance=new LeaveSetting(params)
-
-        render template: 'leaveForm' ,model:[leaveSettingInstance:leaveSettingInstance]
-    }
-
-
-    def renderPayRollForm() {
-        def payRollInstance;
-        if(params.id)
-            payRollInstance=Payroll.get(params.id)
-        else
-            payRollInstance=new Payroll(params)
-        render template: 'payRollForm' ,model:[payRollInstance:payRollInstance]
+        session.activeTab = params.tabTemplate
+        println "==>>"+params
+        String template = params.template
+        String className = params.clazz ? params.clazz : template
+        Class grailsClass = employeeService.getGrailsDomainClass(className)
+        def objectInstance = params.id ? grailsClass.findById(params.id) : grailsClass.newInstance()
+        render template: template ,
+                model:[objectInstanceList:grailsClass.list(params),objectInstaceCount:grailsClass.count(),objectInstance:objectInstance]
     }
 
  /*   @Transactional
@@ -82,7 +41,7 @@ class EmployeeController {
         def (status,message) = employeeService.saveEmployee(params)
         println "status :: "+status+" message :: "+message
         if(status){
-                flash.message = message(code: 'default.created.message', args: ['Employee'])
+                flash.message = 'New Employee create'
                 redirect(index());
         }else {
             flash.message = message
@@ -203,6 +162,8 @@ class EmployeeController {
             map.state=0
             map.msg="Not Found"
         }
+
+
 
         if (leaveSettingInstance.hasErrors()) {
             map.state=0
