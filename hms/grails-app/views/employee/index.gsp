@@ -27,9 +27,10 @@
 		</div>
 	</div>
 </div>
-%{--<g:if test="${flash.message}">--}%
-	%{--<div class="message alert alert-success" role="status">${flash.message}</div>--}%
-%{--</g:if>--}%
+
+<div class="message alert alert-success hide" role="status"></div>
+
+
 <g:hasErrors bean="${errorInstance}">
 	<ul class="errors" role="alert">
 		<g:eachError bean="${errorInstance}" var="error">
@@ -65,6 +66,41 @@
 		var url = '${createLink(action: 'renderTemplate')}';
 		var data = {template:template,clazz:clazz,id:id};
 		makeAjaxCall(url,data,$("#modalBox"),null,function(){$("#modalBox").modal()});
+	}
+
+	function submitForm(){
+		var form=$('#gForm').serialize();
+		var url=$('#gForm').attr('action');
+		$(".alert-success").hasClass("hide")?$(".alert-success").html("") :$(".alert-success").html("").addClass("hide") ;
+		$(".alert-danger").hasClass("hide")?$(".alert-danger").html("") :$(".alert-danger").html("").addClass("hide") ;
+		var type='Leave';
+		$.ajax({
+			url:url,
+			data:form?form:{},
+			async:false,
+			method:'POST',
+			success:function(resp){
+				if(resp.state==0){
+					console.log(jQuery.type(resp.msg))
+					if(jQuery.type(resp.msg)=="array"){
+						$.each(resp.msg,function(i,value){
+							$(".alert-danger").append(value).removeClass("hide");
+						})
+					}else{
+						$(".alert-danger").append(resp.msg).removeClass("hide");;
+					}
+
+				}else if(resp.state==1){
+					$("#modalBox").modal("hide");
+					$(".alert-success").html(resp.msg).removeClass("hide");;
+					makeAjaxCall(${createLink(action: 'renderTemplate')},type,$("#body-container"));
+				}
+
+			},
+			error:function(){
+				$("#modalBox").modal("hide")
+			}
+		});
 	}
 </script>
 </body>

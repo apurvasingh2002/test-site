@@ -12,6 +12,7 @@
                         <th>Employee</th>
                         <th>Status</th>
                         <th>Approved By</th>
+                        <th>Days</th>
                         <th>Duration</th>
                         <th>Actions</th>
                     </tr>
@@ -22,8 +23,9 @@
                             <td><g:link action="show" id="${leaveInstance.id}"> ${leaveInstance.employee.getFullName()} %{--${fieldValue(bean: leaveInstance, field: "employee.getFullName()")}--}%</g:link></td>
                             <td>${fieldValue(bean: leaveInstance, field: "status")}</td>
                             <td>${fieldValue(bean: leaveInstance, field: "approveBy")}</td>
-                            <td>${fieldValue(bean: leaveInstance, field: "duration")}</td>
-                            <td><a href="#" class="fa fa-edit" onclick="getForm('leaveForm','LeaveSetting',${leaveInstance.id})"  title="Edit"> </a></td>
+                            <td>${fieldValue(bean: leaveInstance, field: "days")}</td>
+                            <td>${(leaveInstance.duration==0.0)?'Full Day':(leaveInstance.duration==1.0)?'Second Half':'First Half'}</td>
+                            <td><a href="#" class="fa fa-edit" onclick="getForm('LeaveForm',${leaveInstance.id})"  title="Edit" /></td>
                         </tr>
                     </g:each>
                     </tbody>

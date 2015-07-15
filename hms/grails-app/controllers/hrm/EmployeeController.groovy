@@ -1,6 +1,10 @@
 package hrm
 
 import Enums.LeaveStatus
+import grails.converters.JSON
+import um.Role
+import um.User
+import um.UserRole
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -11,6 +15,8 @@ class EmployeeController {
 
     def springSecurityService
     def employeeService
+    def messageSource
+    def locale = Locale.default
 
     def index() {
           model:[tabTemplate: (session.activeTab ? session.activeTab : 'Employee')]
@@ -97,67 +103,71 @@ class EmployeeController {
     @Transactional
     def saveLeave() {
         def leaveSettingInstance=new LeaveSetting(params)
-        leaveSettingInstance.employee=Employee.findByUser(springSecurityService.currentUser)
-        leaveSettingInstance.days=  params.toDate -  params.fromDate
+        params.toDate=params.date('toDate', 'dd/MM/yyyy')
+        params.fromDate=params.date('fromDate', 'dd/MM/yyyy')
+        params.days=  params.toDate -  params.fromDate
         leaveSettingInstance.status=LeaveStatus.UNAPPROVED;
         leaveSettingInstance.validate()
 
+        def map=[:]
         if (leaveSettingInstance == null) {
-            notFound()
-            return
+            map.state=0
+            map.msg="Not Found"
         }
 
 
 
         if (leaveSettingInstance.hasErrors()) {
-            render  view: 'index',model: [errorInstance:leaveSettingInstance.errors,template:session.activeTab]
-           // respond leaveSettingInstance.errors, view: 'create'
-            return
+            map.state=0
+            map.msg=[]
+            for (fieldErrors in leaveSettingInstance.errors) {
+                for (error in fieldErrors.allErrors) {
+                    map.msg << messageSource.getMessage(error, locale)
+                }
+            }
         }
 
+        if(leaveSettingInstance.save(flush: true)){
+            map.state=1
+            map.msg="Leave successfully created for "+leaveSettingInstance.employee.getFullName();
+        }
+        render map as JSON
 
-
-        leaveSettingInstance.save flush: true
-        flash.message="Leave successfully created for "+leaveSettingInstance.employee.getFullName()
-        redirect(action: "index")
-       /* request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'leaveSetting.label', default: 'LeaveSetting'), leaveSettingInstance.id])
-                redirect leaveSettingInstance
-            }
-//            '*' { respond leaveSettingInstance, [status: CREATED] }
-
-        }*/
     }
 
 
     @Transactional
-    def updateLeave(LeaveSetting leaveSettingInstance) {
-        leaveSettingInstance.days=  leaveSettingInstance.toDate -  leaveSettingInstance.fromDate
+    def updateLeave(LeaveSetting lins) {
+
+        def leaveSettingInstance=LeaveSetting.get(params.id)
+        params.toDate=params.date('toDate', 'dd/MM/yyyy')
+        params.fromDate=params.date('fromDate', 'dd/MM/yyyy')
+        params.days=  params.toDate -  params.fromDate
+        leaveSettingInstance.properties=params
         leaveSettingInstance.validate()
 
+        def map=[:]
+
         if (leaveSettingInstance == null) {
-            notFound()
-            return
+            map.state=0
+            map.msg="Not Found"
         }
 
         if (leaveSettingInstance.hasErrors()) {
-            render  view: 'index',model: [errorInstance:leaveSettingInstance.errors,template:session.activeTab]
-            return
+            map.state=0
+            map.msg=[]
+            for (fieldErrors in leaveSettingInstance.errors) {
+                for (error in fieldErrors.allErrors) {
+                    map.msg << messageSource.getMessage(error, locale)
+                }
+            }
         }
 
-        leaveSettingInstance.save flush: true
-        flash.message="Leave successfully updated for "+leaveSettingInstance.employee.getFullName()
-        redirect(action: "index")
-
-        /*request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'LeaveSetting.label', default: 'LeaveSetting'), leaveSettingInstance.id])
-                redirect leaveSettingInstance
-            }
-//            '*' { respond leaveSettingInstance, [status: OK] }
-            redirect(action: "index")
-        }*/
+        if(leaveSettingInstance.save(flush: true)){
+            map.state=1
+            map.msg="Leave successfully updated for "+leaveSettingInstance.employee.getFullName();
+        }
+        render map as JSON
     }
 
 
