@@ -124,3 +124,6 @@ grails.plugin.springsecurity.securityConfigType = 'Requestmap'
 //grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/dashboard'
 //grails.plugin.springsecurity.logout.afterLogoutUrl = '/logout'
 grails.plugin.springsecurity.logout.postOnly = false
+
+
+grails.databinding.dateFormats = ["dd/MM/yyyy"]

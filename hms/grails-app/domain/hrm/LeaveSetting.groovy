@@ -20,8 +20,15 @@ class LeaveSetting {
         type(blank:false,nullable: false)
         reason(blank:false,nullable: false)
         approveBy(blank:true,nullable: true)
-        toDate(validator:{ val, obj ->
-            if (val< obj.fromDate) ['datePriorTo', val.toString(), obj.fromDate]
-    })
-}
+        fromDate(validator:{ val, obj ->
+            def leaveSetting=LeaveSetting.findByEmployee(obj.employee,[sort:'toDate',order:'desc'])
+            if (val> obj.toDate) ['validation.customFromDateScope','FromDate cannot be greater than ToDate']
+            else if(leaveSetting && val>=leaveSetting?.toDate) ['validation.customFromDateTaken', obj.employee.getFullName()+' has already taken leave in selected date']
+         })
+
+
+
+        }
+
+
 }

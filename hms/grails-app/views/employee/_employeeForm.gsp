@@ -70,7 +70,7 @@
         <div class="modal-footer">
             %{--<g:submitButton name="create" class="save btn btn-primary"
                             value="${message(code: 'default.button.create.label', default: 'Create')}" />--}%
-            <button type="button" class="save btn btn-primary" onclick="submitForm('Employee')" >${(objectInstance?.id)?'Update':'Save'}</button>
+            <button type="button" class="save btn btn-primary" onclick="submitForm('employee','Employee')" >${(objectInstance?.id)?'Update':'Save'}</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
     </div>

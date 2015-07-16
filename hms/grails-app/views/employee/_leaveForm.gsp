@@ -1,7 +1,7 @@
 <%@ page import="Enums.*;java.util.EnumSet;hrm.Employee;hrm.Designation;hrm.Departments" %>
 <div class="modal-dialog" style="width: 800px;">
     <div class="modal-content">
-        %{--<g:form url="[resource:leaveSettingInstance, controller: 'employee', action:leaveSettingInstance.id?'update':'save' ]"  method="${leaveSettingInstance.id?'POST':'PUT'}" >--}%
+        %{--<g:form url="[resource:objectInstance, controller: 'employee', action:objectInstance.id?'update':'save' ]"  method="${objectInstance.id?'POST':'PUT'}" >--}%
 
 
             <div class="modal-header">
@@ -12,14 +12,14 @@
 
         </div>
             <div class="modal-body">
-        <g:form id="gForm" url="[controller: 'employee', action:leaveSettingInstance.id?'updateLeave':'saveLeave',params:[id:leaveSettingInstance.id] ]"  method="${leaveSettingInstance.id?'POST':'PUT'}" >
+        <g:form id="gForm" url="[controller: 'employee', action:objectInstance.id?'updateLeave':'saveLeave',params:[id:objectInstance.id] ]"  method="${objectInstance.id?'POST':'PUT'}" >
 
             <table class="form-table">
 
                     <tr>
                         <td><label>Employee:
-                            %{--<g:select noSelection="${[null:'Select One...']}" name="employee.id" from="${hrm.Employee.list()}" optionValue="firstName" optionKey="id" required="" value="${leaveSettingInstance?.employee?.id}" />--}%
-                        <g:select noSelection="${[null:'Select One...']}"  id="employee" name="employee" from="${hrm.Employee.list()}" optionKey="id" optionValue="firstName"  required="" value="${leaveSettingInstance?.employee?.id}" class="many-to-one"/>
+                            %{--<g:select noSelection="${[null:'Select One...']}" name="employee.id" from="${hrm.Employee.list()}" optionValue="firstName" optionKey="id" required="" value="${objectInstance?.employee?.id}" />--}%
+                        <g:select noSelection="${[null:'Select One...']}"  id="employee" name="employee" from="${hrm.Employee.list()}" optionKey="id" optionValue="firstName"  required="" value="${objectInstance?.employee?.id}" class="many-to-one"/>
                         </label></td>
                         <td>
 
@@ -28,11 +28,11 @@
 
                     </tr>
                     <tr>
-                        <td><label>Leave Type:<g:select noSelection="${[null:'Select One...']}" name="type" from="${Enums.LeaveType?.values()}" keys="${Enums.LeaveType.values()*.name()}" required="" value="${leaveSettingInstance?.type?.name()}" /></label></td>
+                        <td><label>Leave Type:<g:select noSelection="${[null:'Select One...']}" name="type" from="${Enums.LeaveType?.values()}" keys="${Enums.LeaveType.values()*.name()}" required="" value="${objectInstance?.type?.name()}" /></label></td>
                         <td>
                             <label>Leave Status:
-                            <g:if test="${leaveSettingInstance.id}">
-                                <g:select name="status" from="${Enums.LeaveStatus?.values()}" keys="${Enums.LeaveStatus.values()*.name()}" required="" value="${leaveSettingInstance?.status?.name()}" />
+                            <g:if test="${objectInstance.id}">
+                                <g:select name="status" from="${Enums.LeaveStatus?.values()}" keys="${Enums.LeaveStatus.values()*.name()}" required="" value="${objectInstance?.status?.name()}" />
                             </g:if>
                             <g:else>
                                 Pending
@@ -46,12 +46,12 @@
                     </tr>
                     <tr>
                         <td><label>From Date:
-                            %{--<g:datePicker name="fromDate" precision="day"  value="${leaveSettingInstance?.fromDate}"  />--}%
-                            <input  name="fromDate" placeholder="From Date" id="fromDate" data-date-format="dd/mm/yyyy" data-provide="datepicker" value="${formatDate(format: 'dd/MM/yyyy', date: leaveSettingInstance?.fromDate)}" >
+                            %{--<g:datePicker name="fromDate" precision="day"  value="${objectInstance?.fromDate}"  />--}%
+                            <input  name="fromDate" placeholder="From Date" id="fromDate" data-date-format="dd/mm/yyyy" data-provide="datepicker" value="${formatDate(format: 'dd/MM/yyyy', date: objectInstance?.fromDate)}" >
 
                         </label></td>
                         <td><label>To Date:
-                            <input  name="toDate" placeholder="To Date" id="toDate" data-date-format="dd/mm/yyyy" data-provide="datepicker" value="${formatDate(format: 'dd/MM/yyyy', date: leaveSettingInstance?.toDate)}" >
+                            <input  name="toDate" placeholder="To Date" id="toDate" data-date-format="dd/mm/yyyy" data-provide="datepicker" value="${formatDate(format: 'dd/MM/yyyy', date: objectInstance?.toDate)}" >
 
 
                         </label></td>
@@ -62,7 +62,7 @@
                                 <g:radioGroup name="duration"
                                               labels="['First Half','Second Half','Full']"
                                               values="[0.5,1.0,0.0]"
-                                              value="${leaveSettingInstance?.duration?leaveSettingInstance?.duration:0.0}">
+                                              value="${objectInstance?.duration?objectInstance?.duration:0.0}">
                                     <label  style="width: 100px !important">
                                         <span class="radioSpan" >${it.radio}${it.label}</span>
                                     </label>
@@ -72,7 +72,7 @@
                             <div style="clear: both"></div>
                         </label></td>
 
-                        <td><label>Reason: <g:textArea name="reason" required="" value="${leaveSettingInstance?.reason}"/></label></td>
+                        <td><label>Reason: <g:textArea name="reason" required="" value="${objectInstance?.reason}"/></label></td>
 
 
                     </tr>
@@ -82,7 +82,7 @@
             <div class="modal-footer">
                 %{--<g:submitButton name="create" class="save btn btn-primary"
                                 value="${message(code: 'default.button.create.label', default: 'Create')}" />--}%
-                <button type="button" class="save btn btn-primary" onclick="submitForm('Leave')" >${leaveSettingInstance.id?'Update':'Save'}</button>
+                <button type="button" class="save btn btn-primary" onclick="submitForm('leaveSetting','LeaveSetting')" >${objectInstance.id?'Update':'Save'}</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
 

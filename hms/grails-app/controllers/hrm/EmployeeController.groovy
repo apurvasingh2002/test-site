@@ -26,7 +26,6 @@ class EmployeeController {
 
     def renderTemplate(){
         session.activeTab = params.tabTemplate
-        println "==>>"+params
         String template = params.template
         String className = params.clazz ? params.clazz : template
         Class grailsClass = employeeService.getGrailsDomainClass(className)
@@ -51,13 +50,7 @@ class EmployeeController {
 
     @Transactional
     def saveEmployee() {
-
-        def employeeInstance=new Employee()
-        params.effectiveDate=params.date('effectiveDate', 'dd/MM/yyyy')
-        params.dateOfBirth=params.date('dateOfBirth', 'dd/MM/yyyy')
-        params.joinDate=  params.date('joinDate', 'dd/MM/yyyy')
-        params.terminatedDate=params.date('terminatedDate', 'dd/MM/yyyy')
-        employeeInstance.properties=params;
+        def employeeInstance=new Employee(params)
         employeeInstance.validate()
 
         def map=[:]
@@ -83,17 +76,10 @@ class EmployeeController {
         render map as JSON
     }
 
-    def edit(Employee employeeInstance) {
-        respond employeeInstance
-    }
 
     @Transactional
     def updateEmployee() {
         def employeeInstance=Employee.get(params.id)
-        params.effectiveDate=params.date('effectiveDate', 'dd/MM/yyyy')
-        params.dateOfBirth=params.date('dateOfBirth', 'dd/MM/yyyy')
-        params.joinDate=  params.date('joinDate', 'dd/MM/yyyy')
-        params.terminatedDate=params.date('terminatedDate', 'dd/MM/yyyy')
         employeeInstance.properties=params;
         employeeInstance.validate()
 
@@ -150,9 +136,9 @@ class EmployeeController {
     @Transactional
     def saveLeave() {
         def leaveSettingInstance=new LeaveSetting()
-        params.toDate=params.date('toDate', 'dd/MM/yyyy')
-        params.fromDate=params.date('fromDate', 'dd/MM/yyyy')
-        params.days=  params.toDate -  params.fromDate
+//        params.toDate=params.date('toDate', 'dd/MM/yyyy')
+//        params.fromDate=params.date('fromDate', 'dd/MM/yyyy')
+        params.days=  params.date('toDate', 'dd/MM/yyyy') -  params.date('fromDate', 'dd/MM/yyyy')
         params.status=LeaveStatus.UNAPPROVED;
         leaveSettingInstance.properties=params;
         leaveSettingInstance.validate()
@@ -187,12 +173,9 @@ class EmployeeController {
     @Transactional
     def updateLeave() {
         def leaveSettingInstance=LeaveSetting.get(params.id)
-        params.toDate=params.date('toDate', 'dd/MM/yyyy')
-        params.fromDate=params.date('fromDate', 'dd/MM/yyyy')
-        params.days=  params.toDate -  params.fromDate
+        params.days=  params.date('toDate', 'dd/MM/yyyy') -  params.date('fromDate', 'dd/MM/yyyy')
         leaveSettingInstance.properties=params
         leaveSettingInstance.validate()
-
         def map=[:]
 
         if (leaveSettingInstance == null) {
@@ -220,9 +203,7 @@ class EmployeeController {
 
     @Transactional
     def savePayRoll() {
-        def payrollInstance=new Payroll()
-        params.promotionDate=params.date('promotionDate', 'dd/MM/yyyy')
-        payrollInstance.properties=params
+        def payrollInstance=new Payroll(params)
         payrollInstance.validate()
 
 
@@ -253,7 +234,6 @@ class EmployeeController {
     @Transactional
     def updatePayRoll() {
         def payrollInstance=Payroll.get(params.id)
-        params.promotionDate=params.date('promotionDate', 'dd/MM/yyyy')
         payrollInstance.properties=params
         payrollInstance.validate()
 

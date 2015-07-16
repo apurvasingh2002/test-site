@@ -68,12 +68,12 @@
 		makeAjaxCall(url,data,$("#modalBox"),null,function(){$("#modalBox").modal()});
 	}
 
-	function submitForm(updateDiv){
+	function submitForm(updateDiv,clazz){
 		var $this,url,form,tempData;
 		$this=$("#gForm");
 		form=$this.serialize();
 		url=$this.attr('action');
-		tempData={template:updateDiv};
+		tempData= {template:updateDiv,clazz:clazz,tabTemplate:updateDiv};;
 		classCheck();
 		$.ajax({
 			url:url,
@@ -99,11 +99,6 @@
 			},
 			error:function(){
 				$("#modalBox").modal("hide")
-			}, beforeSend : function(){
-				showLoadingScreen();
-			},
-			complete:function(){
-				hideLoadingScreen();
 			}
 		});
 	}
