@@ -126,4 +126,6 @@ grails.plugin.springsecurity.securityConfigType = 'Requestmap'
 grails.plugin.springsecurity.logout.postOnly = false
 
 
-grails.databinding.dateFormats = ["dd/MM/yyyy"]
+grails.databinding.dateFormats = [
+        'dd/MM/yyyy', 'yyyy-MM-dd HH:mm:ss.S', "yyyy-MM-dd'T'hh:mm:ss'Z'"
+]

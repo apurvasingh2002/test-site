@@ -23,7 +23,9 @@ class LeaveSetting {
         fromDate(validator:{ val, obj ->
             def leaveSetting=LeaveSetting.findByEmployee(obj.employee,[sort:'toDate',order:'desc'])
             if (val> obj.toDate) ['validation.customFromDateScope','FromDate cannot be greater than ToDate']
-            else if(leaveSetting && val>=leaveSetting?.toDate) ['validation.customFromDateTaken', obj.employee.getFullName()+' has already taken leave in selected date']
+            else if(leaveSetting && val<=leaveSetting?.toDate){
+                ['validation.customFromDateTaken', obj.employee.getFullName()+' has already taken leave in selected date']
+            }
          })
 
 
