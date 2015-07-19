@@ -18,7 +18,7 @@ class LeaveSetting {
     static constraints = {
 
         type(blank:false,nullable: false)
-        reason(blank:false,nullable: false)
+        reason(blank:false,nullable: false,type: "text")
         approveBy(blank:true,nullable: true)
         fromDate(validator:{ val, obj ->
                 //create and update for sameinstance

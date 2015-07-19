@@ -6,7 +6,7 @@
 
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Create Leave</h4>
+            <h4 class="modal-title">${objectInstance?.id ? "Update" : "Create"} Leave</h4>
         </div>
 
         <div class="message alert alert-danger hide" role="status">
@@ -23,10 +23,10 @@
                         <td>
                             <div>
                                 <g:radioGroup name="noOfDays"
-                                    onclick="handleClick(this.value)"
+                                              onclick="handleClick(this.value)"
                                               labels="['Single Day', 'Multiple Days']"
-                                              values="[0,1]"
-                                              value="${(objectInstance?.days>1)?1:0}">
+                                              values="[0, 1]"
+                                              value="${(objectInstance?.days > 1) ? 1 : 0}">
                                     <label style="width: 100px !important">
                                         <span class="radioSpan">${it.radio}${it.label}</span>
                                     </label>
@@ -41,7 +41,8 @@
                         %{--<g:select noSelection="${[null:'Select One...']}" name="employee.id" from="${hrm.Employee.list()}" optionValue="firstName" optionKey="id" required="" value="${objectInstance?.employee?.id}" />--}%
                         <g:select noSelection="${[null: 'Select One...']}" id="employee" name="employee"
                                   from="${hrm.Employee.list()}" optionKey="id" optionValue="firstName" required=""
-                                  value="${objectInstance?.employee?.id}" class="many-to-one"/>
+                                  value="${objectInstance?.employee?.id}" class="many-to-one"
+                                  disabled="${objectInstance.id ? true : false}"/>
                         </label></td>
                         <td>
 
@@ -70,7 +71,7 @@
 
                     </tr>
                     <tr>
-                        <td><label><span class="isMultiple">From </span>Date:
+                        <td><label><span class="isMultiple">From</span>Date:
                         %{--<g:datePicker name="fromDate" precision="day"  value="${objectInstance?.fromDate}"  />--}%
                             <input name="fromDate" placeholder="From Date" id="fromDate" data-date-format="dd/mm/yyyy"
                                    data-provide="datepicker"
@@ -80,35 +81,34 @@
                         <td>
                             <div class="isMultiple">
 
+                                <label>To Date:
+                                    <input name="toDate" placeholder="To Date" id="toDate" data-date-format="dd/mm/yyyy"
+                                           data-provide="datepicker"
+                                           value="${formatDate(format: 'dd/MM/yyyy', date: objectInstance?.toDate)}">
 
-                            <label>To Date:
-                            <input name="toDate" placeholder="To Date" id="toDate" data-date-format="dd/mm/yyyy"
-                                   data-provide="datepicker"
-                                   value="${formatDate(format: 'dd/MM/yyyy', date: objectInstance?.toDate)}">
-
-                        </label>
+                                </label>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <div class="isSingle">
-                            <label>Leave Duration:
-                            <div>
-                                <g:radioGroup name="duration"
-                                              labels="['First Half', 'Second Half', 'Full']"
-                                              values="[0.5, 1.0, 0.0]"
-                                              value="${objectInstance?.duration ? objectInstance?.duration : 0.0}">
-                                    <label style="width: 100px !important">
-                                        <span class="radioSpan">${it.radio}${it.label}</span>
-                                    </label>
-                                </g:radioGroup>
+                                <label>Leave Duration:
+                                    <div>
+                                        <g:radioGroup name="duration"
+                                                      labels="['First Half', 'Second Half', 'Full']"
+                                                      values="[0.5, 1.0, 0.0]"
+                                                      value="${objectInstance?.duration ? objectInstance?.duration : 0.0}">
+                                            <label style="width: 100px !important">
+                                                <span class="radioSpan">${it.radio}${it.label}</span>
+                                            </label>
+                                        </g:radioGroup>
 
+                                    </div>
+
+                                    <div style="clear: both"></div>
+                                </label>
                             </div>
-
-                            <div style="clear: both"></div>
-                        </label>
-                        </div>
                         </td>
 
                         <td><label>Reason: <g:textArea name="reason" required=""
@@ -134,10 +134,10 @@
     handleClick(currentValue)
     function handleClick(ele) {
         currentValue = ele;
-        if(currentValue==0){
+        if (currentValue == 0) {
             $(".isSingle").removeClass("hide")
             $(".isMultiple").addClass("hide")
-        }else if(currentValue==1){
+        } else if (currentValue == 1) {
             $(".isSingle").addClass("hide")
             $(".isMultiple").removeClass("hide")
         }

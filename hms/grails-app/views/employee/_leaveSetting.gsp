@@ -10,6 +10,7 @@
                     <thead>
                     <tr>
                         <th>Employee</th>
+                        <th>Leave Type</th>
                         <th>Status</th>
                         <th>From</th>
                         <th>Days</th>
@@ -22,6 +23,7 @@
                     <g:each in="${objectInstanceList}" status="i" var="leaveInstance">
                         <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
                             <td><g:link action="show" id="${leaveInstance.id}"> ${leaveInstance.employee.getFullName()} %{--${fieldValue(bean: leaveInstance, field: "employee.getFullName()")}--}%</g:link></td>
+                            <td>${fieldValue(bean: leaveInstance, field: "type")}</td>
                             <td>${fieldValue(bean: leaveInstance, field: "status")}</td>
                             <td><g:formatDate format="dd/MM/yyyy" date="${leaveInstance.fromDate}"/></td>
                             <td>${fieldValue(bean: leaveInstance, field: "days")}</td>
