@@ -57,15 +57,24 @@ class EmployeeService {
 
     def saveInstance(Employee employeeInstance, def params) {
         employeeInstance.properties = params
-        def result=processObject(leaveSettingInstance);
+        def result=processObject(employeeInstance);
         return result
 
     }
 
     def saveInstance(LeaveSetting leaveSettingInstance, def params) {
-        params.days = params.date('toDate', 'dd/MM/yyyy') - params.date('fromDate', 'dd/MM/yyyy')
+
+        if(params.noOfDays.equals('0')){
+            params.toDate=params.fromDate;
+            params.days=1;
+        }else{
+            params.days = params.date('toDate', 'dd/MM/yyyy') - params.date('fromDate', 'dd/MM/yyyy')
+            if(params.days==0)params.days=1
+        }
+
         if (!params.id)
-            params.status = LeaveStatus.UNAPPROVED;
+            params.status = LeaveStatus.PENDING;
+
         leaveSettingInstance.properties = params;
         def result=processObject(leaveSettingInstance);
         return result
@@ -74,7 +83,7 @@ class EmployeeService {
 
     def saveInstance(Payroll payrollInstance, def params) {
         payrollInstance.properties = params
-        def result=processObject(leaveSettingInstance);
+        def result=processObject(payrollInstance);
         return result
     }
 

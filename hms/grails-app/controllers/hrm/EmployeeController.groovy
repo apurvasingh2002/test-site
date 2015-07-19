@@ -17,8 +17,7 @@ class EmployeeController {
     def employeeService
 
     def index() {
-        model:
-        [tabTemplate: (session.activeTab ? session.activeTab : 'Employee')]
+        model:[tabTemplate: (session.activeTab ? session.activeTab : 'Employee')]
 //        params.max = Math.min(params.max ?: 10, 100)
 //        respond Employee.list(params), model:[employeeInstanceCount: Employee.count()]
     }

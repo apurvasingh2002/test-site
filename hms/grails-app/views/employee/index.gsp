@@ -87,7 +87,7 @@
 							$(".alert-danger").append(value+"<br>").removeClass("hide");
 						})
 					}else{
-						$(".alert-danger").append(resp.msg).removeClass("hide");;
+						$(".alert-danger").append(resp.msg).removeClass("hide");
 					}
 
 				}else if(resp.state==1){

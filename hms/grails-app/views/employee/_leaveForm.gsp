@@ -19,6 +19,21 @@
                     method="POST">
                 <g:hiddenField name="className" value="${className}"/>
                 <table class="form-table">
+                    <tr>
+                        <td>
+                            <div>
+                                <g:radioGroup name="noOfDays"
+                                              labels="['Single Day', 'Multiple Days']"
+                                              values="[0,1]"
+                                              value="${(objectInstance?.days>1)?1:0}">
+                                    <label style="width: 100px !important">
+                                        <span class="radioSpan">${it.radio}${it.label}</span>
+                                    </label>
+                                </g:radioGroup>
+
+                            </div></td>
+                        <td></td>
+                    </tr>
 
                     <tr>
                         <td><label>Employee:
