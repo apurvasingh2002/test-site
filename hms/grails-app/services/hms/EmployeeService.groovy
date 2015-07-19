@@ -68,8 +68,10 @@ class EmployeeService {
             params.toDate=params.fromDate;
             params.days=1;
         }else{
-            params.days = params.date('toDate', 'dd/MM/yyyy') - params.date('fromDate', 'dd/MM/yyyy')
-            if(params.days==0)params.days=1
+            params.days = (params.date('toDate', 'dd/MM/yyyy') - params.date('fromDate', 'dd/MM/yyyy'))+1
+            if(params.days>1){
+                params.duration=0.0;
+            }
         }
 
         if (!params.id)
@@ -109,7 +111,7 @@ class EmployeeService {
 
             return map
         }
-        map.msg =obj.id?"Updated successful":"Created successful";
+        map.msg =obj.id?"Updated successfully":"Created successfully";
         map.state = 1
         obj.save()
 

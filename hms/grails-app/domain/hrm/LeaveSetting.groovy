@@ -22,7 +22,7 @@ class LeaveSetting {
         approveBy(blank:true,nullable: true)
         fromDate(validator:{ val, obj ->
                 //create and update for sameinstance
-            if (val> obj.toDate) return ['validation.customFromDateScope','FromDate cannot be greater than ToDate']
+            if (val> obj.toDate) return ['validation.customFromDateScope','FromDate cannot be greater or equal to ToDate']
             else{
                 //update
                 if(obj?.id){
@@ -34,13 +34,13 @@ class LeaveSetting {
 
                     if(prev>=0){
                         if(obj.fromDate <= leaveSetting.get(prev).toDate  ){
-                          return  ['validation.customFromDateTaken', obj.employee.getFullName()+' has already taken leave in selected date. From Date must be greater than '+leaveSetting.get(prev).toDate]
+                          return  ['validation.customFromDateTaken', obj.employee.getFullName()+' has already taken leave in '+leaveSetting.get(prev).toDate.format('dd/MM/yyyy')]
                         }
                     }
 
                     if(size>next){
                         if(obj.toDate >= leaveSetting.get(next).fromDate){
-                         return   ['validation.customFromDateTaken', obj.employee.getFullName()+' has already taken leave in selected date. To Date must be lesser than '+leaveSetting.get(next).fromDate]
+                         return   ['validation.customFromDateTaken', obj.employee.getFullName()+' has already taken leave in '+leaveSetting.get(next).fromDate.format('dd/MM/yyyy')]
                         }
                     }
 
@@ -50,7 +50,7 @@ class LeaveSetting {
                     def leaveSetting=LeaveSetting.findByEmployee(obj.employee,[sort:'id',order:'desc'])
 
                     if(leaveSetting && val<=leaveSetting?.toDate){
-                       return ['validation.customFromDateTaken', obj.employee.getFullName()+' has already taken leave in selected date']
+                       return ['validation.customFromDateTaken', obj.employee.getFullName()+' has already taken leave in '+leaveSetting?.toDate.format('dd/MM/yyyy')]
                     }
                 }
 

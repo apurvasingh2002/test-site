@@ -23,6 +23,7 @@
                         <td>
                             <div>
                                 <g:radioGroup name="noOfDays"
+                                    onclick="handleClick(this.value)"
                                               labels="['Single Day', 'Multiple Days']"
                                               values="[0,1]"
                                               value="${(objectInstance?.days>1)?1:0}">
@@ -69,22 +70,30 @@
 
                     </tr>
                     <tr>
-                        <td><label>From Date:
+                        <td><label><span class="isMultiple">From </span>Date:
                         %{--<g:datePicker name="fromDate" precision="day"  value="${objectInstance?.fromDate}"  />--}%
                             <input name="fromDate" placeholder="From Date" id="fromDate" data-date-format="dd/mm/yyyy"
                                    data-provide="datepicker"
                                    value="${formatDate(format: 'dd/MM/yyyy', date: objectInstance?.fromDate)}">
 
                         </label></td>
-                        <td><label>To Date:
+                        <td>
+                            <div class="isMultiple">
+
+
+                            <label>To Date:
                             <input name="toDate" placeholder="To Date" id="toDate" data-date-format="dd/mm/yyyy"
                                    data-provide="datepicker"
                                    value="${formatDate(format: 'dd/MM/yyyy', date: objectInstance?.toDate)}">
 
-                        </label></td>
+                        </label>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
-                        <td><label>Leave Duration:
+                        <td>
+                            <div class="isSingle">
+                            <label>Leave Duration:
                             <div>
                                 <g:radioGroup name="duration"
                                               labels="['First Half', 'Second Half', 'Full']"
@@ -98,7 +107,9 @@
                             </div>
 
                             <div style="clear: both"></div>
-                        </label></td>
+                        </label>
+                        </div>
+                        </td>
 
                         <td><label>Reason: <g:textArea name="reason" required=""
                                                        value="${objectInstance?.reason}"/></label></td>
@@ -118,3 +129,18 @@
 
     </div>
 </div>
+<script>
+    var currentValue = ${(objectInstance?.days>1)?1:0};
+    handleClick(currentValue)
+    function handleClick(ele) {
+        currentValue = ele;
+        if(currentValue==0){
+            $(".isSingle").removeClass("hide")
+            $(".isMultiple").addClass("hide")
+        }else if(currentValue==1){
+            $(".isSingle").addClass("hide")
+            $(".isMultiple").removeClass("hide")
+        }
+    }
+
+</script>
