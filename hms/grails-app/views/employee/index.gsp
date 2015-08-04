@@ -73,7 +73,7 @@
 		$this=$("#gForm");
 		form=$this.serialize();
 		url=$this.attr('action');
-		tempData= {template:updateDiv,clazz:clazz,tabTemplate:updateDiv};;
+		tempData= {template:updateDiv,clazz:clazz,tabTemplate:updateDiv};
 		classCheck();
 		$.ajax({
 			url:url,

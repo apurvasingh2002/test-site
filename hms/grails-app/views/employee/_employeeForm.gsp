@@ -1,5 +1,5 @@
 <%@ page import="Enums.*;java.util.EnumSet;hrm.Employee;hrm.Designation;hrm.Departments" %>
-<div class="modal-dialog" style="width: 800px;">
+<div class="modal-dialog" style="width: 800px;overflow-y: initial;">
     <div class="modal-content">
 
         <div class="modal-header">
@@ -11,7 +11,7 @@
 
         </div>
 
-        <div class="modal-body">
+        <div class="modal-body" style="overflow-y: auto;height: 450px;">
             <g:uploadForm id="gForm"
                           url="[controller: 'employee', action: 'save', params: [id: objectInstance?.id]]"
                           method="POST">
